@@ -46,6 +46,7 @@ They communicate with each other though websockets, using the Socket.IO library.
 ### Infrastructure resources
 
 * [Angular, version 6](https://angular.io/)
+* [Angular ng-bootstrap](https://ng-bootstrap.github.io/)
 * [Node.js, version 10.4.0](https://nodejs.org/)
 * [Socket.IO](https://socket.io/)
 
