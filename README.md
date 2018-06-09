@@ -1,15 +1,18 @@
 # math-game
+
 A realtime browser-based math game for up to 10 concurrent users
 
-# Table of Contents
-1. [Introduction](#introduction)
-2. [Application structure](#appstruct)
-3. [Development setup](#devsetup)
-    1. [Version control](#vercontr)
-    2. [Source code editor](#editor)
-    3. [Other resources](#other)
+## Table of Contents
 
-# Introduction <a name="introduction"></a>
+1. [Introduction](#introduction)
+2. [Application structure](#application-structure)
+3. [Development setup](#development-setup)
+    1. [Version control](#version-control)
+    2. [Source code editor](#source-code-editor)
+    3. [Other development resources](#other-development-resources)
+4. [Learning material](#learning-material)
+
+## Introduction
 
 This is a realtime browser-based math game for up to 10 concurrent users. The game is structured as a continuous series of rounds, where all connected players compete to submit the correct answer first. The number of rounds is not limited, players can connect at any time and start competing.
 
@@ -17,7 +20,7 @@ At the beginning of each round a simple math challenge is sent to all connected 
 
 The first player to submit a correct answer gets 1 point for the round and completes the round. All incorrect answers subtract a point from the players' score. Correct late answers do not affect the score. After completing the round all remaining players are informed that the round is over. A new round starts in 5 seconds after the end of last one.
 
-# Application structure <a name="appstruct"></a>
+## Application structure
 
 The application follows a typical client-server model, with multiple clients and one server:
 
@@ -26,19 +29,33 @@ The application follows a typical client-server model, with multiple clients and
 
 They will communicate using websockets, using the Socket.IO library.
 
-# Development setup <a name="devsetup"></a>
-## Version control <a name="vercontr"></a>
+## Development setup
+
+### Version control
 
 * [Git](https://git-scm.com/)
 * [TortoiseGit](https://tortoisegit.org/)
 
-## Source code editor <a name="editor"></a>
+### Source code editor
 
 * [Visual Studio Code](https://code.visualstudio.com/)
+  * Extensions:
+    1. [Node.js Extension Pack](https://marketplace.visualstudio.com/items?itemName=waderyan.nodejs-extension-pack)
+    1. [Angular Extension Pack](https://marketplace.visualstudio.com/items?itemName=doggy8088.angular-extension-pack)
+    1. [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
 * [TortoiseGit](https://tortoisegit.org/)
 
-## Other resources <a name="other"></a>
+### Other development resources
 
 * [Angular, version 6](https://angular.io/)
-* [Node.js](https://nodejs.org/)
+* [Node.js, version 10.4.0](https://nodejs.org/)
 * [Socket.IO](https://socket.io/)
+
+## Learning material
+
+[Building Real-time Chess with Socket.io](http://dwcares.com/2015/10/21/realchess/)
+[Real Time Apps with TypeScript: Integrating Web Sockets, Node & Angular](https://medium.com/dailyjs/real-time-apps-with-typescript-integrating-web-sockets-node-angular-e2b57cbd1ec1)
+[Node.js for .NET Developers](https://app.pluralsight.com/library/courses/nodejs-dotnet-developers/)
+[HTTP and Websockets: Understanding the capabilities of today’s web communication technologies](https://medium.com/platform-engineer/web-api-design-35df8167460)
+[REST vs WebSocket Comparison and Benchmarks](http://blog.arungupta.me/rest-vs-websocket-comparison-benchmarks/)
+[Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
