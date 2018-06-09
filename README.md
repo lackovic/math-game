@@ -44,6 +44,12 @@ They communicate with each other though websockets, using the Socket.IO library.
     1. [Node.js Extension Pack](https://marketplace.visualstudio.com/items?itemName=waderyan.nodejs-extension-pack)
     1. [Angular Extension Pack](https://marketplace.visualstudio.com/items?itemName=doggy8088.angular-extension-pack)
     1. [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+  * Custom settings:
+
+> {
+>   "editor.mouseWheelZoom": true,
+>   "files.autoSave": true
+> }
 
 ### Graphics
 
