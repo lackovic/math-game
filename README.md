@@ -43,7 +43,6 @@ They will communicate using websockets, using the Socket.IO library.
     1. [Node.js Extension Pack](https://marketplace.visualstudio.com/items?itemName=waderyan.nodejs-extension-pack)
     1. [Angular Extension Pack](https://marketplace.visualstudio.com/items?itemName=doggy8088.angular-extension-pack)
     1. [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
-* [TortoiseGit](https://tortoisegit.org/)
 
 ### Other development resources
 
@@ -53,9 +52,9 @@ They will communicate using websockets, using the Socket.IO library.
 
 ## Learning material
 
-[Building Real-time Chess with Socket.io](http://dwcares.com/2015/10/21/realchess/)
-[Real Time Apps with TypeScript: Integrating Web Sockets, Node & Angular](https://medium.com/dailyjs/real-time-apps-with-typescript-integrating-web-sockets-node-angular-e2b57cbd1ec1)
-[Node.js for .NET Developers](https://app.pluralsight.com/library/courses/nodejs-dotnet-developers/)
-[HTTP and Websockets: Understanding the capabilities of today’s web communication technologies](https://medium.com/platform-engineer/web-api-design-35df8167460)
-[REST vs WebSocket Comparison and Benchmarks](http://blog.arungupta.me/rest-vs-websocket-comparison-benchmarks/)
-[Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+* [Building Real-time Chess with Socket.io](http://dwcares.com/2015/10/21/realchess/)
+* [Real Time Apps with TypeScript: Integrating Web Sockets, Node & Angular](https://medium.com/dailyjs/real-time-apps-with-typescript-integrating-web-sockets-node-angular-e2b57cbd1ec1)
+* [Node.js for .NET Developers](https://app.pluralsight.com/library/courses/nodejs-dotnet-developers/)
+* [HTTP and Websockets: Understanding the capabilities of today’s web communication technologies](https://medium.com/platform-engineer/web-api-design-35df8167460)
+* [REST vs WebSocket Comparison and Benchmarks](http://blog.arungupta.me/rest-vs-websocket-comparison-benchmarks/)
+* [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
