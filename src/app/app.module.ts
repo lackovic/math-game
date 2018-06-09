@@ -7,13 +7,17 @@ import { GameComponent } from './game/game.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { Error404Component } from './error404/error404.component';
+import { MainComponent } from './game/main/main.component';
+import { PlayersComponent } from './game/players/players.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameComponent,
     HomeComponent,
-    Error404Component
+    Error404Component,
+    MainComponent,
+    PlayersComponent
   ],
   imports: [
     BrowserModule,

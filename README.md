@@ -78,3 +78,4 @@ They communicate with each other though websockets, using the Socket.IO library.
 * [Node.js for .NET Developers](https://app.pluralsight.com/library/courses/nodejs-dotnet-developers/)
 * [HTTP and Websockets: Understanding the capabilities of today’s web communication technologies](https://medium.com/platform-engineer/web-api-design-35df8167460)
 * [REST vs WebSocket Comparison and Benchmarks](http://blog.arungupta.me/rest-vs-websocket-comparison-benchmarks/)
+* [Understanding the node.js event loop](http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/)
