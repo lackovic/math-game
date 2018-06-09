@@ -9,8 +9,10 @@ A realtime browser-based math game for up to 10 concurrent users
 3. [Development setup](#development-setup)
     1. [Version control](#version-control)
     2. [Source code editor](#source-code-editor)
-    3. [Infrastructure resources](#infrastructure-resources)
-4. [Learning material](#learning-material)
+    3. [Graphics](#graphics)
+    4. [Infrastructure resources](#infrastructure-resources)
+4. [Documentation](#documentation)
+5. [Learning material](#learning-material)
 
 ## Introduction
 
@@ -43,6 +45,11 @@ They communicate with each other though websockets, using the Socket.IO library.
     1. [Angular Extension Pack](https://marketplace.visualstudio.com/items?itemName=doggy8088.angular-extension-pack)
     1. [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
 
+### Graphics
+
+* [Inkscape](https://inkscape.org/)
+* [SVG optimiser](http://petercollingridge.appspot.com/svg-optimiser)
+
 ### Infrastructure resources
 
 * [Angular, version 6](https://angular.io/)
@@ -51,6 +58,11 @@ They communicate with each other though websockets, using the Socket.IO library.
 * [Node.js, version 10.4.0](https://nodejs.org/)
 * [Socket.IO](https://socket.io/)
 
+## Documentation
+
+* [Bootstrap 4 components](https://getbootstrap.com/docs/4.0/components/alerts/)
+* [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+
 ## Learning material
 
 * [Building Real-time Chess with Socket.io](http://dwcares.com/2015/10/21/realchess/)
@@ -58,4 +70,3 @@ They communicate with each other though websockets, using the Socket.IO library.
 * [Node.js for .NET Developers](https://app.pluralsight.com/library/courses/nodejs-dotnet-developers/)
 * [HTTP and Websockets: Understanding the capabilities of today’s web communication technologies](https://medium.com/platform-engineer/web-api-design-35df8167460)
 * [REST vs WebSocket Comparison and Benchmarks](http://blog.arungupta.me/rest-vs-websocket-comparison-benchmarks/)
-* [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
