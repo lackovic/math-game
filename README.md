@@ -5,11 +5,11 @@ A realtime browser-based math game for up to 10 concurrent users
 ## Table of Contents
 
 1. [Introduction](#introduction)
-2. [Application structure](#application-structure)
+2. [Architecture](#architecture)
 3. [Development setup](#development-setup)
     1. [Version control](#version-control)
     2. [Source code editor](#source-code-editor)
-    3. [Other development resources](#other-development-resources)
+    3. [Infrastructure resources](#infrastructure-resources)
 4. [Learning material](#learning-material)
 
 ## Introduction
@@ -20,14 +20,13 @@ At the beginning of each round a simple math challenge is sent to all connected 
 
 The first player to submit a correct answer gets 1 point for the round and completes the round. All incorrect answers subtract a point from the players' score. Correct late answers do not affect the score. After completing the round all remaining players are informed that the round is over. A new round starts in 5 seconds after the end of last one.
 
-## Application structure
+## Architecture
 
-The application follows a typical client-server model, with multiple clients and one server:
+The application follows a typical client-server model, with multiple clients and one server.
 
-1. The client, built using Angular
-2. The server, built with Node.js 
+The client side is built with Angular and the server side in Node.js.
 
-They will communicate using websockets, using the Socket.IO library.
+They communicate with each other though websockets, using the Socket.IO library.
 
 ## Development setup
 
@@ -44,7 +43,7 @@ They will communicate using websockets, using the Socket.IO library.
     1. [Angular Extension Pack](https://marketplace.visualstudio.com/items?itemName=doggy8088.angular-extension-pack)
     1. [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
 
-### Other development resources
+### Infrastructure resources
 
 * [Angular, version 6](https://angular.io/)
 * [Node.js, version 10.4.0](https://nodejs.org/)
