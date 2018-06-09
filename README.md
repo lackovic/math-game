@@ -46,10 +46,12 @@ They communicate with each other though websockets, using the Socket.IO library.
     1. [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
   * Custom settings:
 
-> {
->   "editor.mouseWheelZoom": true,
->   "files.autoSave": true
-> }
+```javascript
+{
+    "editor.mouseWheelZoom": true,
+    "files.autoSave": true
+}
+```
 
 ### Graphics
 
