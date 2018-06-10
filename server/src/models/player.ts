@@ -1,3 +1,5 @@
-export class Player {
-  constructor(private name: string) {}
+export interface Player {
+  socketId: string;
+  name: string;
+  score: number;
 }

@@ -18,6 +18,10 @@ export class SocketService {
     this.socket = socketIo(SERVER_URL);
   }
 
+  public isConnected(): boolean {
+    return this.socket.connected;
+  }
+
   // public send(answer: boolean): void {
   //   if (this.socket != null) {
   //     this.socket.emit('answer', answer);

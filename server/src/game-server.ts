@@ -1,6 +1,7 @@
 import { createServer, Server } from 'http';
 import * as express from 'express';
 import * as socketIo from 'socket.io';
+import { Game } from './game';
 
 export class GameServer {
 
@@ -11,12 +12,7 @@ export class GameServer {
   private io: SocketIO.Server;
   private port: string | number;
 
-  // private readonly roundSeconds: number = 10;
-  // private readonly waitSeconds: number = 5;
-  // private currentQuestion: string;
-  // private currentAnswer: boolean;
-
-  private connectedPlayers: string[] = [];
+  private game = new Game();
 
   constructor() {
     this.initServer();
@@ -49,9 +45,7 @@ export class GameServer {
 
       //setTimeout(() => socket.disconnect(true), 5000);
 
-      console.log('Client %s connected. Connection status = %s', socket.id, socket.connected);
       this.addPlayer(socket.id);
-      console.log('Connected players = %s', this.connectedPlayers.length);
 
       socket.on('message', () => {
         console.log('Received empty message from client %s', socket.id);
@@ -63,26 +57,25 @@ export class GameServer {
       });
 
       socket.on('disconnect', () => {
-        console.log('Client ' + socket.id + ' disconnected');
         this.removePlayer(socket.id);
-        console.log('Connected players = %s', this.connectedPlayers.length);
       });
     });
   }
 
   broadcastPlayersList() {
-    this.io.sockets.emit('playerListChange', this.connectedPlayers);
+    this.io.sockets.emit('playerListChange', this.game.players);
+    console.log('Connected players = %s', this.game.players.length);
   }
 
   addPlayer(id: string) {
-    this.connectedPlayers.push(id);
+    console.log('Client %s connected. Connection status = %s', id);
+    this.game.addPlayer(id);
     this.broadcastPlayersList();
   }
 
   removePlayer(id: string) {
-    var index = this.connectedPlayers.indexOf(id, 0);
-    if (index > -1) {
-      this.connectedPlayers.splice(index, 1);
+    if (this.game.removePlayer(id)) {
+      console.log('Client ' + id + ' disconnected');
       this.broadcastPlayersList();
     }
   }
@@ -90,4 +83,5 @@ export class GameServer {
   getApp(): express.Application {
     return this.app;
   }
+
 }

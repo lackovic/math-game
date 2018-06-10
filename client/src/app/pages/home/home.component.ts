@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SocketService } from '../../services/socket.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,14 +9,23 @@ import { SocketService } from '../../services/socket.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private socketService: SocketService) { }
+  private readonly timeoutSeconds: number = 3;
+
+  constructor(private socketService: SocketService, private router: Router) { }
 
   ngOnInit() {
   }
 
   join() {
-    console.log('this.socketService.connect()');
     this.socketService.connect();
+    const timer = setTimeout(() => this.checkConnection(), this.timeoutSeconds * 1000);
+    this.router.navigate(['game']);
+  }
+
+  checkConnection(): any {
+    if (!this.socketService.isConnected()) {
+      this.router.navigate(['connectionError']);
+    }
   }
 
 }
