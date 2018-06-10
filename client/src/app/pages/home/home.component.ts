@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
 
   join() {
     console.log('this.socketService.connect()');
-    this.socketService.connect('HomeComponent');
+    this.socketService.connect();
   }
 
 }

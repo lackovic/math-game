@@ -76,7 +76,7 @@ They communicate with each other though websockets, using the Socket.IO library.
 * [Bootstrap 4 components](https://getbootstrap.com/docs/4.0/components/alerts/)
 * [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
-## Learning material
+## Learning material  
 
 * [Building Real-time Chess with Socket.io](http://dwcares.com/2015/10/21/realchess/)
 * [Real Time Apps with TypeScript: Integrating Web Sockets, Node & Angular](https://medium.com/dailyjs/real-time-apps-with-typescript-integrating-web-sockets-node-angular-e2b57cbd1ec1)
