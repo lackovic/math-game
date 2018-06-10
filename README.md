@@ -26,7 +26,7 @@ The first player to submit a correct answer gets 1 point for the round and compl
 
 The application follows a typical client-server model, with multiple clients and one server.
 
-The client side is built with Angular and the server side in Node.js.
+The client side is built with Angular and the server side with Express/Node.js.
 
 They communicate with each other though websockets, using the Socket.IO library.
 
@@ -49,7 +49,11 @@ They communicate with each other though websockets, using the Socket.IO library.
 ```javascript
 {
     "editor.mouseWheelZoom": true,
-    "files.autoSave": true
+    "files.autoSave": true,
+    "files.exclude": {
+        "client/node_modules/": true,
+        "server/node_modules/": true
+    }
 }
 ```
 
@@ -64,6 +68,7 @@ They communicate with each other though websockets, using the Socket.IO library.
 * [Angular CLI](https://cli.angular.io/)
 * [Angular ng-bootstrap](https://ng-bootstrap.github.io/)
 * [Node.js, version 10.4.0](https://nodejs.org/)
+* [Express](http://expressjs.com/)
 * [Socket.IO](https://socket.io/)
 
 ## Documentation
@@ -79,3 +84,5 @@ They communicate with each other though websockets, using the Socket.IO library.
 * [HTTP and Websockets: Understanding the capabilities of today’s web communication technologies](https://medium.com/platform-engineer/web-api-design-35df8167460)
 * [REST vs WebSocket Comparison and Benchmarks](http://blog.arungupta.me/rest-vs-websocket-comparison-benchmarks/)
 * [Understanding the node.js event loop](http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/)
+* [Express web framework (Node.js/JavaScript)](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs)
+* [Node.js apps on Firebase Hosting Crash Course](https://youtu.be/LOeioOKUKI8)
