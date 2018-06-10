@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Player } from '../../../models/Player';
 import { forEach } from '@angular/router/src/utils/collection';
+import { SocketService } from '../../../services/socket.service';
 
 @Component({
   selector: 'app-players',
@@ -13,7 +14,7 @@ export class PlayersComponent implements OnInit {
 
   players: Player[] = [];
 
-  constructor() {
+  constructor(private socketService: SocketService) {
     this.initPlayers();
   }
 
@@ -38,4 +39,10 @@ export class PlayersComponent implements OnInit {
     this.players = this.players.sort((a, b) => b.score - a.score);
   }
 
+  exit() {
+    if (this.socketService != null) {
+      console.log('this.socketService.disconnect()');
+      this.socketService.disconnect();
+    }
+  }
 }

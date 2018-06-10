@@ -16,6 +16,8 @@ export class GameServer {
   // private currentQuestion: string;
   // private currentAnswer: boolean;
 
+  private connectedPlayers: string[] = [];
+
   constructor() {
     this.initServer();
     this.startServer();
@@ -27,12 +29,7 @@ export class GameServer {
     this.port = process.env.PORT || GameServer.PORT;
     this.server = createServer(this.app);
     this.io = socketIo(this.server);
-  }
-
-  private startServer(): void {
-    this.server.listen(this.port, () => {
-      console.log('Running math game server on port %s', this.port);
-    });
+    console.log('Math game server initialized');
   }
 
   private get(): void {
@@ -41,18 +38,53 @@ export class GameServer {
     });
   }
 
-  private listen(): void {
+  private startServer(): void {
+
+    this.server.listen(this.port, () => {
+      console.log('Math game server listening on port %s', this.port);
+    });
+
+
     this.io.on('connect', (socket: any) => {
-      console.log('Connected client on port %s.', this.port);
-      socket.on('answer', (a: boolean) => {
-        console.log('[server](answer): %s', JSON.stringify(a));
-        this.io.emit('answer', a);
+
+      //setTimeout(() => socket.disconnect(true), 5000);
+
+      console.log('Client %s connected. Connection status = %s', socket.id, socket.connected);
+      this.addPlayer(socket.id);
+      console.log('Connected players = %s', this.connectedPlayers.length);
+
+      socket.on('message', () => {
+        console.log('Received empty message from client %s', socket.id);
+      });
+
+      socket.on('message', (string: string) => {
+        console.log('Received "%s" from client %s', string, socket.id);
+        //JSON.stringify(a)
       });
 
       socket.on('disconnect', () => {
-        console.log('Client disconnected');
+        console.log('Client ' + socket.id + ' disconnected');
+        this.removePlayer(socket.id);
+        console.log('Connected players = %s', this.connectedPlayers.length);
       });
     });
+  }
+
+  broadcastPlayersList() {
+    this.io.sockets.emit('playerListChange', this.connectedPlayers);
+  }
+
+  addPlayer(id: string) {
+    this.connectedPlayers.push(id);
+    this.broadcastPlayersList();
+  }
+
+  removePlayer(id: string) {
+    var index = this.connectedPlayers.indexOf(id, 0);
+    if (index > -1) {
+      this.connectedPlayers.splice(index, 1);
+      this.broadcastPlayersList();
+    }
   }
 
   getApp(): express.Application {
