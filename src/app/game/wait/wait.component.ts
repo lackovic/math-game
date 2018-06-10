@@ -1,11 +1,11 @@
 import { Component, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  selector: 'app-wait',
+  templateUrl: './wait.component.html',
+  styleUrls: ['./wait.component.css']
 })
-export class MainComponent implements OnInit {
+export class WaitComponent implements OnInit {
 
   @Output() secondsToGameStart = 5;
 
