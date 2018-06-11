@@ -28,7 +28,7 @@ The application follows a typical client-server model, with multiple clients and
 
 The client side is built with Angular and the server side with Express/Node.js.
 
-They communicate with each other though websockets, using the Socket.IO library.
+They communicate with each other through websockets, using the Socket.IO library.
 
 ## Development setup
 
