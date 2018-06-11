@@ -1,5 +1,12 @@
 <div class="row">
-  <div class="col-sm-8">
+  <div class="col-sm-8" *ngIf="headerMessage">
+    <h2>{{headerMessage}}</h2>
+    <p>
+      <ngb-progressbar [type]="progress < 100 ? 'primary' : 'danger'" [value]="progress">
+      </ngb-progressbar>
+    </p>
+  </div>
+  <div class="col-sm-8" *ngIf="!headerMessage">
     <app-wait></app-wait>
   </div>
   <div class="col-sm-4">
