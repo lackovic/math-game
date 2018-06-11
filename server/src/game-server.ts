@@ -12,7 +12,7 @@ export class GameServer {
   private io: SocketIO.Server;
   private port: string | number;
 
-  private game = new Game();
+  private game = new Game(this);
 
   constructor() {
     this.initServer();
@@ -82,6 +82,11 @@ export class GameServer {
 
   getApp(): express.Application {
     return this.app;
+  }
+
+  emitQuestion(question: string): any {
+    console.log('emitting question = %s', question);
+    this.io.emit('message', question);
   }
 
 }

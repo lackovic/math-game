@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { SocketService } from '../../../services/socket.service';
 
 @Component({
   selector: 'app-game',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameComponent implements OnInit {
 
-  constructor() { }
+  @Output() question: string;
+
+  constructor(private socketService: SocketService) { }
 
   ngOnInit() {
+    this.socketService.onMessage()
+      .subscribe((question: string) => {
+        this.question = question;
+      });
   }
 
 }

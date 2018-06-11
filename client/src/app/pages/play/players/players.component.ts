@@ -41,7 +41,6 @@ export class PlayersComponent implements OnInit {
 
   exit() {
     if (this.socketService != null) {
-      console.log('this.socketService.disconnect()');
       this.socketService.disconnect();
     }
   }

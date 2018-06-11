@@ -32,23 +32,21 @@ export class SocketService {
 
   public disconnect(): void {
     if (this.socket != null) {
-      console.log('this.socket.emit(disconnect)');
-      this.socket.send('test');
       this.socket.disconnect();
     } else {
       console.log('Error: disconnect failed because socket is not initialized');
     }
   }
 
-  // public onMessage(): Observable<string> {
-  //   return new Observable<string>(observer => {
-  //     this.socket.on('question', (data: string) => observer.next(data));
-  //   });
-  // }
+  public onMessage(): Observable<string> {
+    return new Observable<string>(observer => {
+      this.socket.on('message', (question: string) => observer.next(question));
+    });
+  }
 
-  // public onEvent(event: Event): Observable<any> {
-  //   return new Observable<Event>(observer => {
-  //     this.socket.on(event, () => observer.next());
-  //   });
-  // }
+  public onEvent(event: Event): Observable<any> {
+    return new Observable<Event>(observer => {
+        this.socket.on(event, () => observer.next());
+    });
+  }
 }
