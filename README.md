@@ -52,7 +52,8 @@ They communicate with each other through websockets, using the Socket.IO library
     "files.autoSave": true,
     "files.exclude": {
         "client/node_modules/": true,
-        "server/node_modules/": true
+        "server/node_modules/": true,
+        "server/dist/": true
     }
 }
 ```
