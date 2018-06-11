@@ -2,11 +2,11 @@ import { Component, OnInit, Output } from '@angular/core';
 import { SocketService } from '../../services/socket.service';
 
 @Component({
-  selector: 'app-game',
-  templateUrl: './game.component.html',
-  styleUrls: ['./game.component.css']
+  selector: 'app-play',
+  templateUrl: './play.component.html',
+  styleUrls: ['./play.component.css']
 })
-export class GameComponent implements OnInit {
+export class PlayComponent implements OnInit {
 
   private readonly maxRetries: number = 4;
   private retriesCount = 0;
