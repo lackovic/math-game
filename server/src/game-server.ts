@@ -68,7 +68,7 @@ export class GameServer {
   }
 
   addPlayer(id: string) {
-    console.log('Client %s connected. Connection status = %s', id);
+    console.log('Client %s connected', id);
     this.game.addPlayer(id);
     this.broadcastPlayersList();
   }
@@ -85,7 +85,7 @@ export class GameServer {
   }
 
   emitQuestion(question: string): any {
-    console.log('emitting question = %s', question);
+    console.log('Sending message = %s', question);
     this.io.emit('message', question);
   }
 

@@ -10,6 +10,7 @@ export class GameEngine {
   private readonly waitSeconds: number = 5;
 
   private question: string;
+  private readonly waitMessage = 'Waiting for the next challenge...';
   // private answer: boolean;
 
   public players: Player[] = [];
@@ -26,7 +27,7 @@ export class GameEngine {
     };
     this.players.push(newPlayer);
     if (this.players.length == 1) {
-      this.newGame();
+      this.endGame();
     }
   }
 
@@ -42,23 +43,27 @@ export class GameEngine {
   }
 
   newGame(): any {
-    console.log('Starting new game');
-    const operand1 = Math.floor((Math.random() * 9) + 1);
-    const operand2 = Math.floor((Math.random() * 9) + 1);
-    const operator = this.operators[Math.floor((Math.random() * this.operators.length))];
-    this.question = operand1 + operator + operand2;
-    console.log('generated question = %s', this.question);
-    this.gameServer.emitQuestion(this.question);
-    setTimeout(() => this.endGame(), this.roundSeconds * 1000);
+    if (this.players.length > 0) {
+      console.log('Starting new game');
+      const operand1 = Math.floor((Math.random() * 9) + 1);
+      const operand2 = Math.floor((Math.random() * 9) + 1);
+      const operator = this.operators[Math.floor((Math.random() * this.operators.length))];
+      this.question = operand1 + operator + operand2;
+      console.log('generated question = %s', this.question);
+      this.gameServer.emitQuestion(this.question);
+      setTimeout(() => this.endGame(), this.roundSeconds * 1000);
+    }
   }
 
   endGame(): any {
-    console.log('Ending game');
-    console.log('------------------------');
     if (this.players.length > 0) {
       console.log('Restarting in %s seconds', this.waitSeconds);
       console.log('------------------------');
+      this.gameServer.emitQuestion(this.waitMessage);
       setTimeout(() => this.newGame(), this.waitSeconds * 1000);
+    } else {
+      console.log('Ending game');
+      console.log('------------------------');
     }
   }
 }

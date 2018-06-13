@@ -8,14 +8,14 @@ import { SocketService } from '../../../services/socket.service';
 })
 export class GameComponent implements OnInit {
 
-  @Output() question: string;
+  @Output() header = 'You are connected to the server. Waiting for a challenge...';
 
   constructor(private socketService: SocketService) { }
 
   ngOnInit() {
     this.socketService.onMessage()
       .subscribe((question: string) => {
-        this.question = question;
+        this.header = question;
       });
   }
 
