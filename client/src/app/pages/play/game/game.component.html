@@ -1,1 +1,16 @@
 <h2>{{header}}</h2>
+
+<div class="container">
+  <div class="row" *ngIf="theAnswer == null">
+    <div class="col-md-6">
+      <button type="button" class="btn btn-success btn-lg" (click)="answer(true)">
+        True
+      </button>
+    </div>
+    <div class="col-md-6">
+      <button type="button" class="btn btn-danger btn-lg" (click)="answer(false)">
+        False
+      </button>
+    </div>
+  </div>
+</div>

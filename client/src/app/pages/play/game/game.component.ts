@@ -9,14 +9,21 @@ import { SocketService } from '../../../services/socket.service';
 export class GameComponent implements OnInit {
 
   @Output() header = 'You are connected to the server. Waiting for a challenge...';
+  @Output() theAnswer: boolean;
 
   constructor(private socketService: SocketService) { }
 
   ngOnInit() {
     this.socketService.onMessage()
       .subscribe((question: string) => {
-        this.header = question;
+    this.theAnswer = null;
+    this.header = question;
       });
+  }
+
+  answer(theAnswer: boolean) {
+    this.theAnswer = theAnswer;
+    console.log(theAnswer);
   }
 
 }
