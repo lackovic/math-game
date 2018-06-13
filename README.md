@@ -27,16 +27,16 @@ They communicate with each other through websockets, using the Socket.IO library
 
 ## How to install
 
-```client/npm install
-server/npm install
-server/gulp build```
+`client/npm install`
+`server/npm install`
+`server/gulp build`
 
 ## How to run
 
 In a command prompt, run:
 
-```server/node dist/index.js```
+`server/node dist/index.js`
 
 In another command prompt, run:
 
-```client/ng serve --open```
+`client/ng serve --open`
