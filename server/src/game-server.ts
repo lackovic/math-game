@@ -1,7 +1,7 @@
 import { createServer, Server } from 'http';
 import * as express from 'express';
 import * as socketIo from 'socket.io';
-import { Game } from './game';
+import { GameEngine } from './game-engine';
 
 export class GameServer {
 
@@ -12,7 +12,7 @@ export class GameServer {
   private io: SocketIO.Server;
   private port: string | number;
 
-  private game = new Game(this);
+  private game = new GameEngine(this);
 
   constructor() {
     this.initServer();

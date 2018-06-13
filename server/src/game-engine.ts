@@ -4,7 +4,7 @@ import * as socketIo from 'socket.io';
 import { Player } from './models/player';
 import { GameServer } from './game-server';
 
-export class Game {
+export class GameEngine {
 
   private readonly roundSeconds: number = 10;
   private readonly waitSeconds: number = 5;
@@ -12,7 +12,6 @@ export class Game {
   private question: string;
   // private answer: boolean;
 
-  private timer;
   public players: Player[] = [];
   public readonly operators: string[] = ['+', '-', '*', '/'];
   private totalPlayers: number = 1;
