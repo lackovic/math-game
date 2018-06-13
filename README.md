@@ -6,13 +6,8 @@ A realtime browser-based math game for up to 10 concurrent users
 
 1. [Introduction](#introduction)
 2. [Architecture](#architecture)
-3. [Development setup](#development-setup)
-    1. [Version control](#version-control)
-    2. [Source code editor](#source-code-editor)
-    3. [Graphics](#graphics)
-    4. [Infrastructure resources](#infrastructure-resources)
-4. [Documentation](#documentation)
-5. [Learning material](#learning-material)
+3. [How to install](#how-to-install)
+4. [How to run](#how-to-run)
 
 ## Introduction
 
@@ -30,60 +25,18 @@ The client side is built with Angular and the server side with Express/Node.js.
 
 They communicate with each other through websockets, using the Socket.IO library.
 
-## Development setup
+## How to install
 
-### Version control
+```client/npm install
+server/npm install
+server/gulp build```
 
-* [Git](https://git-scm.com/)
-* [TortoiseGit](https://tortoisegit.org/)
+## How to run
 
-### Source code editor
+In a command prompt, run:
 
-* [Visual Studio Code](https://code.visualstudio.com/)
-  * Extensions:
-    1. [Node.js Extension Pack](https://marketplace.visualstudio.com/items?itemName=waderyan.nodejs-extension-pack)
-    1. [Angular Extension Pack](https://marketplace.visualstudio.com/items?itemName=doggy8088.angular-extension-pack)
-    1. [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
-  * Custom settings:
+```server/node dist/index.js```
 
-```javascript
-{
-    "editor.mouseWheelZoom": true,
-    "files.autoSave": true,
-    "files.exclude": {
-        "client/node_modules/": true,
-        "server/node_modules/": true,
-        "server/dist/": true
-    }
-}
-```
+In another command prompt, run:
 
-### Graphics
-
-* [Inkscape](https://inkscape.org/)
-* [SVG optimiser](http://petercollingridge.appspot.com/svg-optimiser)
-
-### Infrastructure resources
-
-* [Angular, version 6](https://angular.io/)
-* [Angular CLI](https://cli.angular.io/)
-* [Angular ng-bootstrap](https://ng-bootstrap.github.io/)
-* [Node.js, version 10.4.0](https://nodejs.org/)
-* [Express](http://expressjs.com/)
-* [Socket.IO](https://socket.io/)
-
-## Documentation
-
-* [Bootstrap 4 components](https://getbootstrap.com/docs/4.0/components/alerts/)
-* [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
-
-## Learning material  
-
-* [Building Real-time Chess with Socket.io](http://dwcares.com/2015/10/21/realchess/)
-* [Real Time Apps with TypeScript: Integrating Web Sockets, Node & Angular](https://medium.com/dailyjs/real-time-apps-with-typescript-integrating-web-sockets-node-angular-e2b57cbd1ec1)
-* [Node.js for .NET Developers](https://app.pluralsight.com/library/courses/nodejs-dotnet-developers/)
-* [HTTP and Websockets: Understanding the capabilities of today’s web communication technologies](https://medium.com/platform-engineer/web-api-design-35df8167460)
-* [REST vs WebSocket Comparison and Benchmarks](http://blog.arungupta.me/rest-vs-websocket-comparison-benchmarks/)
-* [Understanding the node.js event loop](http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/)
-* [Express web framework (Node.js/JavaScript)](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs)
-* [Node.js apps on Firebase Hosting Crash Course](https://youtu.be/LOeioOKUKI8)
+```client/ng serve --open```
