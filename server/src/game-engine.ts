@@ -1,16 +1,17 @@
 import { Player } from './models/player';
 import { GameServer } from './game-server';
+import { Randomizer } from './randomizer';
 
 export class GameEngine {
 
   private readonly roundSeconds: number = 10;
   private readonly waitSeconds: number = 5;
+  private readonly percentageOfCorrectAnswers = 50;
 
   private readonly waitMessage = 'Waiting for the next challenge...';
-  // private answer: boolean;
 
+  private answer: boolean;
   public players: Player[] = [];
-  public readonly operators: string[] = ['+', '-', '*', '/'];
   private totalPlayers: number = 1;
 
   constructor(private gameServer: GameServer) { }
@@ -41,20 +42,17 @@ export class GameEngine {
   newGame(): any {
     if (this.players.length > 0) {
       console.log('Starting new game');
-      let arithmeticOperation = this.generateRandomArithmeticOperation();
+      let arithmeticOperation = Randomizer.generateRandomArithmeticOperation();
       let solution = eval(arithmeticOperation);
+      this.answer = Math.floor(Math.random() * 100) < this.percentageOfCorrectAnswers;
+      if (!this.answer) {
+        solution += Randomizer.generateRandomDeviation(solution);
+      }
       let fullQuestion = arithmeticOperation + ' = ' + solution;
       console.log('Generated question = %s', fullQuestion);
       this.gameServer.emitQuestion(fullQuestion);
       setTimeout(() => this.endGame(), this.roundSeconds * 1000);
     }
-  }
-
-  private generateRandomArithmeticOperation() {
-    const operand1 = Math.floor((Math.random() * 9) + 1);
-    const operand2 = Math.floor((Math.random() * 9) + 1);
-    const operator = this.operators[Math.floor((Math.random() * this.operators.length))];
-    return operand1 + operator + operand2;
   }
 
   endGame(): any {
