@@ -47,13 +47,8 @@ export class GameServer {
 
       this.addPlayer(socket.id);
 
-      socket.on('message', () => {
-        console.log('Received empty message from client %s', socket.id);
-      });
-
-      socket.on('message', (string: string) => {
-        console.log('Received "%s" from client %s', string, socket.id);
-        //JSON.stringify(a)
+      socket.on('message', (answer: boolean) => {
+        console.log('Received %s message from client %s', answer, socket.id);
       });
 
       socket.on('disconnect', () => {

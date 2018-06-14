@@ -22,13 +22,13 @@ export class SocketService {
     return this.socket.connected;
   }
 
-  // public send(answer: boolean): void {
-  //   if (this.socket != null) {
-  //     this.socket.emit('answer', answer);
-  //   } else {
-  //     console.log('Error: send failed because socket is not initialized');
-  //   }
-  // }
+  public send(answer: boolean): void {
+    if (this.socket != null) {
+      this.socket.emit('message', answer);
+    } else {
+      console.log('Error: send failed because socket is not initialized');
+    }
+  }
 
   public disconnect(): void {
     if (this.socket != null) {

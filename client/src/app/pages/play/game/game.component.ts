@@ -16,13 +16,14 @@ export class GameComponent implements OnInit {
   ngOnInit() {
     this.socketService.onMessage()
       .subscribe((question: string) => {
-    this.theAnswer = null;
-    this.header = question;
+        this.theAnswer = null;
+        this.header = question;
       });
   }
 
   answer(theAnswer: boolean) {
     this.theAnswer = theAnswer;
+    this.socketService.send(theAnswer);
     console.log(theAnswer);
   }
 
