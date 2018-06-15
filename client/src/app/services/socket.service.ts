@@ -14,7 +14,7 @@ export class SocketService {
 
   constructor() { }
 
-  public connect(): void {
+  public connect() {
     this.socket = socketIo(SERVER_URL);
   }
 
@@ -22,7 +22,7 @@ export class SocketService {
     return this.socket.connected;
   }
 
-  public send(answer: boolean): void {
+  public send(answer: boolean) {
     if (this.socket != null) {
       this.socket.emit('message', answer);
     } else {
@@ -30,7 +30,7 @@ export class SocketService {
     }
   }
 
-  public disconnect(): void {
+  public disconnect() {
     if (this.socket != null) {
       this.socket.disconnect();
     } else {

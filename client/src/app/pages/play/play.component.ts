@@ -21,7 +21,7 @@ export class PlayComponent implements OnInit {
     setTimeout(() => this.checkConnection(), 1000);
   }
 
-  checkConnection(): any {
+  checkConnection() {
     if (this.socketService.isConnected()) {
       this.headerMessage = null;
     } else if (this.retriesCount < this.maxRetries) {
@@ -32,5 +32,4 @@ export class PlayComponent implements OnInit {
     }
     setTimeout(() => this.checkConnection(), 1000);
   }
-
 }

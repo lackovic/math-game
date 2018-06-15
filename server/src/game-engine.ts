@@ -39,7 +39,7 @@ export class GameEngine {
     return false;
   }
 
-  newGame(): any {
+  newGame() {
     if (this.players.length > 0) {
       console.log('Starting new game');
       let challenge = this.getRandomChallenge();
@@ -66,7 +66,7 @@ export class GameEngine {
     return n % 1 === 0;
   }
 
-  endGame(): any {
+  endGame() {
     if (this.players.length > 0) {
       console.log('Restarting in %s seconds', this.waitSeconds);
       console.log('------------------------');
@@ -77,4 +77,5 @@ export class GameEngine {
       console.log('------------------------');
     }
   }
+
 }

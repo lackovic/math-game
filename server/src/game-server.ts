@@ -12,7 +12,7 @@ export class GameServer {
   private io: SocketIO.Server;
   private port: string | number;
 
-  private game = new GameEngine(this);
+  private gameEngine = new GameEngine(this);
 
   constructor() {
     this.initServer();
@@ -20,7 +20,7 @@ export class GameServer {
     this.get();
   }
 
-  private initServer(): void {
+  private initServer() {
     this.app = express();
     this.port = process.env.PORT || GameServer.PORT;
     this.server = createServer(this.app);
@@ -28,29 +28,23 @@ export class GameServer {
     console.log('Math game server initialized');
   }
 
-  private get(): void {
+  private get() {
     this.app.get('/', function (req, res) {
       res.send('Math game server is up and running!');
     });
   }
 
-  private startServer(): void {
+  private startServer() {
 
     this.server.listen(this.port, () => {
       console.log('Math game server listening on port %s', this.port);
     });
 
-
     this.io.on('connect', (socket: any) => {
-
-      //setTimeout(() => socket.disconnect(true), 5000);
-
       this.addPlayer(socket.id);
-
-      socket.on('message', (answer: boolean) => {
-        console.log('Received %s message from client %s', answer, socket.id);
+      socket.on('message', (solution: boolean) => {
+        console.log('Received %s message from client %s', solution, socket.id);
       });
-
       socket.on('disconnect', () => {
         this.removePlayer(socket.id);
       });
@@ -58,18 +52,18 @@ export class GameServer {
   }
 
   broadcastPlayersList() {
-    this.io.sockets.emit('playerListChange', this.game.players);
-    console.log('Connected players = %s', this.game.players.length);
+    this.io.sockets.emit('message', this.gameEngine.players);
+    console.log('Connected players = %s', this.gameEngine.players.length);
   }
 
   addPlayer(id: string) {
     console.log('Client %s connected', id);
-    this.game.addPlayer(id);
+    this.gameEngine.addPlayer(id);
     this.broadcastPlayersList();
   }
 
   removePlayer(id: string) {
-    if (this.game.removePlayer(id)) {
+    if (this.gameEngine.removePlayer(id)) {
       console.log('Client ' + id + ' disconnected');
       this.broadcastPlayersList();
     }
