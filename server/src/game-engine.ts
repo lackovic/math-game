@@ -48,11 +48,18 @@ export class GameEngine {
       if (!this.answer) {
         solution += Randomizer.generatePlausibleRandomDeviation(solution);
       }
+      if (!this.isInteger(solution)) {
+        solution = solution.toFixed(2);
+      }
       let fullQuestion = arithmeticOperation + ' = ' + solution;
       console.log('Generated question = %s', fullQuestion);
       this.gameServer.emitQuestion(fullQuestion);
       setTimeout(() => this.endGame(), this.roundSeconds * 1000);
     }
+  }
+
+  isInteger(n) {
+    return n % 1 === 0;
   }
 
   endGame(): any {
