@@ -11,7 +11,7 @@ export class GameEngine {
   private readonly waitMessage = 'Waiting for the next challenge...';
 
   private isSolutionCorrect: boolean;
-  private isGameOpen: boolean = false;
+  private isRoundOpen: boolean = false;
   public players: Player[] = [];
   private totalPlayers: number = 0;
 
@@ -42,7 +42,7 @@ export class GameEngine {
 
   startRound() {
     if (this.players.length > 0) {
-      this.isGameOpen = true;
+      this.isRoundOpen = true;
       console.log('Starting new game');
       let challenge = this.getRandomChallenge();
       console.log('Generated challenge = %s', challenge);
@@ -69,7 +69,7 @@ export class GameEngine {
   }
 
   endRound() {
-    this.isGameOpen = false;
+    this.isRoundOpen = false;
     if (this.players.length > 0) {
       console.log('Restarting in %s seconds', this.waitSeconds);
       console.log('------------------------');
@@ -82,7 +82,7 @@ export class GameEngine {
   }
 
   solutionFromPlayer(solution: boolean, playerId: string) {
-    if (this.isGameOpen && solution == this.isSolutionCorrect) {
+    if (this.isRoundOpen && solution == this.isSolutionCorrect) {
       // TODO +1 to this player
       this.endRound();
     } else {
