@@ -44,6 +44,7 @@ export class GameServer {
       this.addPlayer(socket.id);
       socket.on('message', (solution: boolean) => {
         console.log('Received %s message from client %s', solution, socket.id);
+        this.gameEngine.solutionFromPlayer(solution, socket.id);
       });
       socket.on('disconnect', () => {
         this.removePlayer(socket.id);

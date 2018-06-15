@@ -10,16 +10,17 @@ export class GameEngine {
 
   private readonly waitMessage = 'Waiting for the next challenge...';
 
-  private answer: boolean;
+  private isSolutionCorrect: boolean;
+  private isGameOpen: boolean = false;
   public players: Player[] = [];
-  private totalPlayers: number = 1;
+  private totalPlayers: number = 0;
 
   constructor(private gameServer: GameServer) { }
 
   addPlayer(socketId: string) {
     let newPlayer: Player = {
       socketId: socketId,
-      name: "Player " + this.totalPlayers++,
+      name: "Player " + ++this.totalPlayers,
       score: 0
     };
     this.players.push(newPlayer);
@@ -41,6 +42,7 @@ export class GameEngine {
 
   newGame() {
     if (this.players.length > 0) {
+      this.isGameOpen = true;
       console.log('Starting new game');
       let challenge = this.getRandomChallenge();
       console.log('Generated challenge = %s', challenge);
@@ -52,8 +54,8 @@ export class GameEngine {
   getRandomChallenge(): string {
     let arithmeticOperation = Randomizer.getRandomArithmeticOperation();
     let solution = eval(arithmeticOperation);
-    this.answer = Math.floor(Math.random() * 100) < this.percentageOfCorrectAnswers;
-    if (!this.answer) {
+    this.isSolutionCorrect = Math.floor(Math.random() * 100) < this.percentageOfCorrectAnswers;
+    if (!this.isSolutionCorrect) {
       solution += Randomizer.getPlausibleRandomDeviation(solution);
     }
     if (!this.isInteger(solution)) {
@@ -67,6 +69,7 @@ export class GameEngine {
   }
 
   endGame() {
+    this.isGameOpen = false;
     if (this.players.length > 0) {
       console.log('Restarting in %s seconds', this.waitSeconds);
       console.log('------------------------');
@@ -78,4 +81,12 @@ export class GameEngine {
     }
   }
 
+  solutionFromPlayer(solution: boolean, playerId: string) {
+    if (this.isGameOpen && solution == this.isSolutionCorrect) {
+      // TODO +1 to this player
+      this.endGame();
+    } else {
+      // TODO -1 to this player
+    }
+  }
 }
