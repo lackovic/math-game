@@ -42,20 +42,24 @@ export class GameEngine {
   newGame(): any {
     if (this.players.length > 0) {
       console.log('Starting new game');
-      let arithmeticOperation = Randomizer.generateRandomArithmeticOperation();
-      let solution = eval(arithmeticOperation);
-      this.answer = Math.floor(Math.random() * 100) < this.percentageOfCorrectAnswers;
-      if (!this.answer) {
-        solution += Randomizer.generatePlausibleRandomDeviation(solution);
-      }
-      if (!this.isInteger(solution)) {
-        solution = solution.toFixed(2);
-      }
-      let fullQuestion = arithmeticOperation + ' = ' + solution;
-      console.log('Generated question = %s', fullQuestion);
-      this.gameServer.emitQuestion(fullQuestion);
+      let challenge = this.getRandomChallenge();
+      console.log('Generated challenge = %s', challenge);
+      this.gameServer.emitChallenge(challenge);
       setTimeout(() => this.endGame(), this.roundSeconds * 1000);
     }
+  }
+
+  getRandomChallenge(): string {
+    let arithmeticOperation = Randomizer.getRandomArithmeticOperation();
+    let solution = eval(arithmeticOperation);
+    this.answer = Math.floor(Math.random() * 100) < this.percentageOfCorrectAnswers;
+    if (!this.answer) {
+      solution += Randomizer.getPlausibleRandomDeviation(solution);
+    }
+    if (!this.isInteger(solution)) {
+      solution = solution.toFixed(2);
+    }
+    return arithmeticOperation + ' = ' + solution;
   }
 
   isInteger(n) {
@@ -66,7 +70,7 @@ export class GameEngine {
     if (this.players.length > 0) {
       console.log('Restarting in %s seconds', this.waitSeconds);
       console.log('------------------------');
-      this.gameServer.emitQuestion(this.waitMessage);
+      this.gameServer.emitChallenge(this.waitMessage);
       setTimeout(() => this.newGame(), this.waitSeconds * 1000);
     } else {
       console.log('Ending game');

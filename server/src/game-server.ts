@@ -79,7 +79,7 @@ export class GameServer {
     return this.app;
   }
 
-  emitQuestion(question: string): any {
+  emitChallenge(question: string): any {
     console.log('Sending message = %s', question);
     this.io.emit('message', question);
   }
