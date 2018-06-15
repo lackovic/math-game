@@ -25,7 +25,7 @@ export class GameEngine {
     };
     this.players.push(newPlayer);
     if (this.players.length == 1) {
-      this.endGame();
+      this.endRound();
     }
   }
 
@@ -40,14 +40,14 @@ export class GameEngine {
     return false;
   }
 
-  newGame() {
+  startRound() {
     if (this.players.length > 0) {
       this.isGameOpen = true;
       console.log('Starting new game');
       let challenge = this.getRandomChallenge();
       console.log('Generated challenge = %s', challenge);
       this.gameServer.emitChallenge(challenge);
-      setTimeout(() => this.endGame(), this.roundSeconds * 1000);
+      setTimeout(() => this.endRound(), this.roundSeconds * 1000);
     }
   }
 
@@ -68,13 +68,13 @@ export class GameEngine {
     return n % 1 === 0;
   }
 
-  endGame() {
+  endRound() {
     this.isGameOpen = false;
     if (this.players.length > 0) {
       console.log('Restarting in %s seconds', this.waitSeconds);
       console.log('------------------------');
       this.gameServer.emitChallenge(this.waitMessage);
-      setTimeout(() => this.newGame(), this.waitSeconds * 1000);
+      setTimeout(() => this.startRound(), this.waitSeconds * 1000);
     } else {
       console.log('Ending game');
       console.log('------------------------');
@@ -84,7 +84,7 @@ export class GameEngine {
   solutionFromPlayer(solution: boolean, playerId: string) {
     if (this.isGameOpen && solution == this.isSolutionCorrect) {
       // TODO +1 to this player
-      this.endGame();
+      this.endRound();
     } else {
       // TODO -1 to this player
     }
