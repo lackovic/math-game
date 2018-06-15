@@ -42,9 +42,9 @@ export class GameServer {
 
     this.io.on('connect', (socket: any) => {
       this.addPlayer(socket.id);
-      socket.on('message', (solution: boolean) => {
-        console.log('Received %s message from client %s', solution, socket.id);
-        this.gameEngine.solutionFromPlayer(solution, socket.id);
+      socket.on('answer', (answer: boolean) => {
+        console.log('Received answer %s from client %s', answer, socket.id);
+        this.gameEngine.answerFromPlayer(answer, socket.id);
       });
       socket.on('disconnect', () => {
         this.removePlayer(socket.id);
@@ -52,21 +52,21 @@ export class GameServer {
     });
   }
 
-  broadcastPlayersList() {
-    this.io.sockets.emit('message', this.gameEngine.players);
-    console.log('Connected players = %s', this.gameEngine.players.length);
-  }
+  // broadcastPlayersList() {
+  //   this.io.sockets.emit('message', this.gameEngine.players);
+  //   console.log('Connected players = %s', this.gameEngine.players.length);
+  // }
 
   addPlayer(id: string) {
     console.log('Client %s connected', id);
     this.gameEngine.addPlayer(id);
-    this.broadcastPlayersList();
+    // this.broadcastPlayersList();
   }
 
   removePlayer(id: string) {
     if (this.gameEngine.removePlayer(id)) {
       console.log('Client ' + id + ' disconnected');
-      this.broadcastPlayersList();
+      // this.broadcastPlayersList();
     }
   }
 
@@ -74,9 +74,15 @@ export class GameServer {
     return this.app;
   }
 
-  emitChallenge(question: string): any {
-    console.log('Sending message = %s', question);
-    this.io.emit('message', question);
+  startRound(challenge: string): any {
+    console.log('Starting round with challenge = %s', challenge);
+    this.io.emit('startRound', challenge);
+  }
+
+
+  endRound(): any {
+    console.log('Ending round');
+    this.io.emit('endRound');
   }
 
 }

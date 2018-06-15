@@ -24,7 +24,7 @@ export class SocketService {
 
   public send(answer: boolean) {
     if (this.socket != null) {
-      this.socket.emit('message', answer);
+      this.socket.emit('answer', answer);
     } else {
       console.log('Error: send failed because socket is not initialized');
     }
@@ -38,9 +38,15 @@ export class SocketService {
     }
   }
 
-  public onMessage(): Observable<string> {
+  public onStartRound(): Observable<string> {
     return new Observable<string>(observer => {
-      this.socket.on('message', (question: string) => observer.next(question));
+      this.socket.on('startRound', (question: string) => observer.next(question));
+    });
+  }
+
+  public onEndRound(): Observable<string> {
+    return new Observable<string>(observer => {
+      this.socket.on('endRound', () => observer.next());
     });
   }
 

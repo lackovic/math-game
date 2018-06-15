@@ -1,7 +1,16 @@
-<h2>{{header}}</h2>
-
+<div class="container" *ngIf="!equation">
+  <h2>Connected!</h2>
+  <h3>Waiting for the first challenge...</h3>
+</div>
+<div class="container" *ngIf="isRoundOpen">
+  <h2>{{equation}}</h2>
+</div>
+<div class="container" *ngIf="!isRoundOpen && equation">
+  <h2>Round ended.</h2>
+  <h3>Waiting for the next challenge...</h3>
+</div>
 <div class="container">
-  <div class="row" *ngIf="theAnswer == null">
+  <div class="row" *ngIf="isRoundOpen">
     <div class="col-md-6">
       <button type="button" class="btn btn-success btn-lg" (click)="answer(true)">
         Correct
@@ -13,4 +22,8 @@
       </button>
     </div>
   </div>
+  <p>
+    <ngb-progressbar [type]="isRoundOpen ? 'primary' : 'warning'" type="primary" [value]="progress">
+    </ngb-progressbar>
+  </p>
 </div>

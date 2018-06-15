@@ -14,6 +14,7 @@ export class GameEngine {
   private isRoundOpen: boolean = false;
   public players: Player[] = [];
   private totalPlayers: number = 0;
+  private currentRound: number = 0;
 
   constructor(private gameServer: GameServer) { }
 
@@ -25,7 +26,7 @@ export class GameEngine {
     };
     this.players.push(newPlayer);
     if (this.players.length == 1) {
-      this.endRound();
+      this.endRound(this.currentRound);
     }
   }
 
@@ -40,14 +41,14 @@ export class GameEngine {
     return false;
   }
 
-  startRound() {
+  startRound(myRound: number) {
     if (this.players.length > 0) {
       this.isRoundOpen = true;
       console.log('Starting new game');
       let challenge = this.getRandomChallenge();
       console.log('Generated challenge = %s', challenge);
-      this.gameServer.emitChallenge(challenge);
-      setTimeout(() => this.endRound(), this.roundSeconds * 1000);
+      this.gameServer.startRound(challenge);
+      setTimeout(() => this.endRound(myRound), this.roundSeconds * 1000);
     }
   }
 
@@ -68,23 +69,25 @@ export class GameEngine {
     return n % 1 === 0;
   }
 
-  endRound() {
-    this.isRoundOpen = false;
-    if (this.players.length > 0) {
-      console.log('Restarting in %s seconds', this.waitSeconds);
-      console.log('------------------------');
-      this.gameServer.emitChallenge(this.waitMessage);
-      setTimeout(() => this.startRound(), this.waitSeconds * 1000);
-    } else {
-      console.log('Ending game');
-      console.log('------------------------');
+  endRound(myRound: number) {
+    if (myRound == this.currentRound) {
+      this.isRoundOpen = false;
+      if (this.players.length > 0) {
+        console.log('Restarting in %s seconds', this.waitSeconds);
+        console.log('------------------------');
+        this.gameServer.endRound();
+        setTimeout(() => this.startRound(++this.currentRound), this.waitSeconds * 1000);
+      } else {
+        console.log('Ending game');
+        console.log('------------------------');
+      }
     }
   }
 
-  solutionFromPlayer(solution: boolean, playerId: string) {
+  answerFromPlayer(solution: boolean, playerId: string) {
     if (this.isRoundOpen && solution == this.isSolutionCorrect) {
       // TODO +1 to this player
-      this.endRound();
+      this.endRound(this.currentRound);
     } else {
       // TODO -1 to this player
     }
