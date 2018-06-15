@@ -46,7 +46,7 @@ export class GameEngine {
       let solution = eval(arithmeticOperation);
       this.answer = Math.floor(Math.random() * 100) < this.percentageOfCorrectAnswers;
       if (!this.answer) {
-        solution += Randomizer.generateRandomDeviation(solution);
+        solution += Randomizer.generatePlausibleRandomDeviation(solution);
       }
       let fullQuestion = arithmeticOperation + ' = ' + solution;
       console.log('Generated question = %s', fullQuestion);
