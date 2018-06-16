@@ -94,4 +94,9 @@ export class GameServer {
     this.io.sockets.connected[socketId].emit('gameJoined', roundSeconds, breakSeconds);
   }
 
+  wrongAnswer(socketId) {
+    console.log('Sending wrong answer to player %s', socketId);
+    this.io.sockets.connected[socketId].emit('wrongAnswer');
+  }
+
 }

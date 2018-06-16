@@ -60,6 +60,12 @@ export class SocketService {
     });
   }
 
+  public onWrongAnswer(): Observable<string> {
+    return new Observable<string>(observer => {
+      this.socket.on('wrongAnswer', () => observer.next());
+    });
+  }
+
   public onGameJoined(): Observable<{ roundSeconds: number, breakSeconds: number }> {
     return new Observable<{ roundSeconds: number, breakSeconds: number }>(observer => {
       this.socket.on('gameJoined', (roundSeconds: number, breakSeconds: number) => observer.next({ roundSeconds, breakSeconds }));

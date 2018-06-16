@@ -14,6 +14,7 @@ export class GameComponent implements OnInit {
   @Output() challenge;
   @Output() isRoundOpen: boolean;
   @Output() isGameFull: boolean;
+  @Output() isAnswerWrong: boolean;
   @Output() progress: number;
   @Output() round: number;
 
@@ -33,6 +34,11 @@ export class GameComponent implements OnInit {
         console.log('The game is full');
         this.isGameFull = true;
       });
+    this.socketService.onWrongAnswer()
+      .subscribe(() => {
+        this.isAnswerWrong = true;
+        console.log('Answer wrong');
+      });
     this.socketService.onGameJoined()
       .subscribe((params) => {
         console.log('Game joined');
@@ -45,11 +51,11 @@ export class GameComponent implements OnInit {
 
   answer(answer: boolean) {
     this.socketService.sendAnswer(answer);
-    this.isRoundOpen = false;
   }
 
   startRound(round: number, challenge: string) {
     this.isRoundOpen = true;
+    this.isAnswerWrong = false;
     this.round = round;
     this.challenge = challenge;
     this.moveProgress(this.roundSeconds, true);
@@ -67,6 +73,7 @@ export class GameComponent implements OnInit {
   }
 
   endRound() {
+    this.isAnswerWrong = false;
     this.isRoundOpen = false;
     this.moveProgress(this.breakSeconds, false);
   }

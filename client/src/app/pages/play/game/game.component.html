@@ -10,16 +10,20 @@
   <h3>Sorry, the game is full.</h3>
   <h1>Try again later.</h1>
 </div>
-<div class="container" *ngIf="isRoundOpen">
+<div class="container" *ngIf="isAnswerWrong">
+  <h2>Sorry, wrong answer.</h2>
+  <h3>Waiting for the round to end...</h3>
+</div>
+<div class="container" *ngIf="isRoundOpen && !isAnswerWrong">
   <h3>Round #{{round}}</h3>
   <h1>{{challenge}}</h1>
 </div>
-<div class="container" *ngIf="!isRoundOpen && challenge">
+<div class="container" *ngIf="!isAnswerWrong && !isRoundOpen && challenge">
   <h2>Round #{{round}} ended.</h2>
   <h3>Waiting for the next challenge...</h3>
 </div>
 <div class="container">
-  <div class="row" *ngIf="isRoundOpen">
+  <div class="row" *ngIf="isRoundOpen && !isAnswerWrong">
     <div class="col-sm pr-0">
       <button type="button" class="btn btn-success btn-lg" (click)="answer(true)">
         Correct

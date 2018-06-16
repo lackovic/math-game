@@ -104,6 +104,7 @@ export class GameEngine {
     } else {
       console.log('Player %s answer "%s" is wrong', playerId, answer);
       // TODO -1 to this player
+      this.gameServer.wrongAnswer(playerId);
     }
   }
 }
