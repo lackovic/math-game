@@ -67,7 +67,7 @@ export class GameServer {
 
   removePlayer(id: string) {
     if (this.gameEngine.removePlayer(id)) {
-      console.log('Client ' + id + ' disconnected');
+      console.log('Player ' + id + ' left the game');
       // this.broadcastPlayersList();
     }
   }
@@ -77,12 +77,11 @@ export class GameServer {
   }
 
   startRound(round: number, challenge: string) {
-    console.log('Starting round with challenge = %s', challenge);
+    console.log('Sending challenge "%s" for new round', challenge);
     this.io.emit('startRound', round, challenge);
   }
 
   endRound() {
-    console.log('Ending round');
     this.io.emit('endRound');
   }
 

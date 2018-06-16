@@ -11,7 +11,7 @@ export class GameEngine {
   private isSolutionCorrect: boolean;
 
   private isRoundOpen: boolean = false;
-  private currentRound: number = 0;
+  private round: number = 0;
 
   public players: Player[] = [];
   private totalPlayers: number = 0;
@@ -30,7 +30,7 @@ export class GameEngine {
       };
       this.players.push(newPlayer);
       if (this.players.length == 1) {
-        this.endRound(this.currentRound);
+        this.endRound(this.round);
       }
       // this.broadcastPlayersList();
     } else {
@@ -53,9 +53,8 @@ export class GameEngine {
   startRound(round: number) {
     if (this.players.length > 0) {
       this.isRoundOpen = true;
-      console.log('Starting new game');
+      console.log('Starting round #%s', this.round);
       let challenge = this.getRandomChallenge();
-      console.log('Generated challenge = %s', challenge);
       this.gameServer.startRound(round, challenge);
       setTimeout(() => this.endRound(round), this.roundSeconds * 1000);
     }
@@ -79,15 +78,16 @@ export class GameEngine {
   }
 
   endRound(round: number) {
-    if (round == this.currentRound) {
+    if (round == this.round) {
       this.isRoundOpen = false;
       if (this.players.length > 0) {
-        console.log('Restarting in %s seconds', this.waitSeconds);
+        console.log('Ending round #%s', this.round);
+        this.round++;
         console.log('------------------------');
         this.gameServer.endRound();
-        setTimeout(() => this.startRound(++this.currentRound), this.waitSeconds * 1000);
+        setTimeout(() => this.startRound(this.round), this.waitSeconds * 1000);
       } else {
-        console.log('Ending game');
+        console.log('Round #%s ended', this.round);
         console.log('------------------------');
       }
     }
@@ -96,7 +96,7 @@ export class GameEngine {
   answerFromPlayer(solution: boolean, playerId: string) {
     if (this.isRoundOpen && solution == this.isSolutionCorrect) {
       // TODO +1 to this player
-      this.endRound(this.currentRound);
+      this.endRound(this.round);
     } else {
       // TODO -1 to this player
     }
