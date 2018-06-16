@@ -42,13 +42,24 @@ export class GameEngine {
   removePlayer(socketId: string): boolean {
     if (this.players.length > 0) {
       this.availableSlots++;
-      let player: Player = this.players.filter(p => p.socketId == socketId)[0];
+      let player: Player = this.getPlayer(socketId);
       if (player != null) {
         this.players = this.players.filter(p => p !== player);
         return true;
       }
     }
     return false;
+  }
+
+  getPlayer(socketId): Player {
+    return this.players.filter(p => p.socketId == socketId)[0];
+  }
+
+  updatePlayerScore(socketId, variation: number) {
+    const player = this.getPlayer(socketId);
+    if (player != null) {
+      player.score += variation;
+    }
   }
 
   startRound(round: number) {
@@ -98,13 +109,17 @@ export class GameEngine {
     if (answer == this.isSolutionCorrect) {
       if (this.isRoundOpen) {
         console.log('Player %s answer "%s" is correct', playerId, answer);
-        // TODO +1 to this player
+        this.updatePlayerScore(playerId, 1);
         this.endRound(this.round);
       }
     } else {
       console.log('Player %s answer "%s" is wrong', playerId, answer);
-      // TODO -1 to this player
+      this.updatePlayerScore(playerId, -1);
       this.gameServer.wrongAnswer(playerId);
     }
+    console.log("Scoreboard:")
+    this.players.forEach(player => {
+      console.log("%s score = %s", player.name, player.score);
+    });
   }
 }
