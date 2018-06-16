@@ -95,10 +95,12 @@ export class GameEngine {
   }
 
   answerFromPlayer(answer: boolean, playerId: string) {
-    if (this.isRoundOpen && answer == this.isSolutionCorrect) {
-      console.log('Player %s answer "%s" is correct', playerId, answer);
-      // TODO +1 to this player
-      this.endRound(this.round);
+    if (answer == this.isSolutionCorrect) {
+      if (this.isRoundOpen) {
+        console.log('Player %s answer "%s" is correct', playerId, answer);
+        // TODO +1 to this player
+        this.endRound(this.round);
+      }
     } else {
       console.log('Player %s answer "%s" is wrong', playerId, answer);
       // TODO -1 to this player
