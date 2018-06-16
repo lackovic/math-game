@@ -32,6 +32,7 @@ export class GameEngine {
       if (this.players.length == 1) {
         this.endRound(this.round);
       }
+      this.gameServer.gameJoined(socketId, this.roundSeconds, this.waitSeconds);
       // this.broadcastPlayersList();
     } else {
       this.gameServer.gameFull(socketId);

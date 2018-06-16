@@ -8,8 +8,8 @@ import { SocketService } from '../../../services/socket.service';
 })
 export class GameComponent implements OnInit {
 
-  private readonly roundSeconds: number = 10;
-  private readonly waitSeconds: number = 5;
+  private roundSeconds: number;
+  private waitSeconds: number;
 
   @Output() challenge;
   @Output() isRoundOpen: boolean;
@@ -33,8 +33,14 @@ export class GameComponent implements OnInit {
         console.log('The game is full');
         this.isGameFull = true;
       });
+    this.socketService.onGameJoined()
+      .subscribe((params) => {
+        console.log('Game joined');
+        this.roundSeconds = params['roundSeconds'];
+        this.waitSeconds = params['waitSeconds'];
+        this.endRound();
+      });
     this.socketService.joinGame();
-    this.endRound();
   }
 
   answer(answer: boolean) {
