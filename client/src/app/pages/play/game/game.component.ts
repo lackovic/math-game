@@ -33,11 +33,12 @@ export class GameComponent implements OnInit {
         console.log('The game is full');
         this.isGameFull = true;
       });
+    this.socketService.joinGame();
     this.endRound();
   }
 
   answer(answer: boolean) {
-    this.socketService.send(answer);
+    this.socketService.sendAnswer(answer);
     this.isRoundOpen = false;
   }
 

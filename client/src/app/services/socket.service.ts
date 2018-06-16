@@ -22,7 +22,11 @@ export class SocketService {
     return this.socket.connected;
   }
 
-  public send(answer: boolean) {
+  public joinGame() {
+    this.socket.emit('joinGame');
+  }
+
+  public sendAnswer(answer: boolean) {
     if (this.socket != null) {
       this.socket.emit('answer', answer);
     } else {

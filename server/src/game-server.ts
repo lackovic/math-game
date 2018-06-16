@@ -41,7 +41,10 @@ export class GameServer {
     });
 
     this.io.on('connect', (socket: any) => {
-      this.addPlayer(socket.id);
+      console.log('Player %s connected', socket.id);
+      socket.on('joinGame', () => {
+        this.addPlayer(socket.id);
+      });
       socket.on('answer', (answer: boolean) => {
         console.log('Received answer %s from client %s', answer, socket.id);
         this.gameEngine.answerFromPlayer(answer, socket.id);
@@ -58,9 +61,8 @@ export class GameServer {
   // }
 
   addPlayer(id: string) {
-    console.log('Client %s connected', id);
+    console.log('Player %s wants to join the game', id);
     this.gameEngine.addPlayer(id);
-    // this.broadcastPlayersList();
   }
 
   removePlayer(id: string) {
@@ -85,8 +87,8 @@ export class GameServer {
   }
 
   gameFull(socketId) {
-    console.log('Sending gameFull to client %s', socketId);
-    setTimeout(() => this.io.sockets.connected[socketId].emit('gameFull'), 1000);
+    console.log('Sending gameFull to player %s', socketId);
+    this.io.sockets.connected[socketId].emit('gameFull');
   }
 
 }

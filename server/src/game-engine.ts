@@ -21,6 +21,7 @@ export class GameEngine {
 
   addPlayer(socketId: string) {
     if (this.availableSlots > 0) {
+      console.log('Player %s joined the game', socketId);
       this.availableSlots--;
       let newPlayer: Player = {
         socketId: socketId,
@@ -31,6 +32,7 @@ export class GameEngine {
       if (this.players.length == 1) {
         this.endRound(this.currentRound);
       }
+      // this.broadcastPlayersList();
     } else {
       this.gameServer.gameFull(socketId);
     }
