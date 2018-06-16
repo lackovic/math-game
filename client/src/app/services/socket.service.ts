@@ -50,6 +50,12 @@ export class SocketService {
     });
   }
 
+  public onGameFull(): Observable<string> {
+    return new Observable<string>(observer => {
+      this.socket.on('gameFull', () => observer.next());
+    });
+  }
+
   public onEvent(event: Event): Observable<any> {
     return new Observable<Event>(observer => {
       this.socket.on(event, () => observer.next());

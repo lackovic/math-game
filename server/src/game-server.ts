@@ -74,15 +74,19 @@ export class GameServer {
     return this.app;
   }
 
-  startRound(round: number, challenge: string): any {
+  startRound(round: number, challenge: string) {
     console.log('Starting round with challenge = %s', challenge);
     this.io.emit('startRound', round, challenge);
   }
 
-
-  endRound(): any {
+  endRound() {
     console.log('Ending round');
     this.io.emit('endRound');
+  }
+
+  gameFull(socketId) {
+    console.log('Sending gameFull to client %s', socketId);
+    setTimeout(() => this.io.sockets.connected[socketId].emit('gameFull'), 1000);
   }
 
 }

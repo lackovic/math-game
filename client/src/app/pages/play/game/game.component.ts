@@ -13,6 +13,7 @@ export class GameComponent implements OnInit {
 
   @Output() challenge;
   @Output() isRoundOpen: boolean;
+  @Output() isGameFull: boolean;
   @Output() progress: number;
   @Output() round: number;
 
@@ -21,14 +22,16 @@ export class GameComponent implements OnInit {
   ngOnInit() {
     this.socketService.onStartRound()
       .subscribe(params => {
-        const round = params['round'];
-        const challenge = params['challenge'];
-        console.log('Received round = %s, challenge = %s', round, challenge);
-        this.startRound(round, challenge);
+        this.startRound(params['round'], params['challenge']);
       });
     this.socketService.onEndRound()
       .subscribe(() => {
         this.endRound();
+      });
+    this.socketService.onGameFull()
+      .subscribe(() => {
+        console.log('The game is full');
+        this.isGameFull = true;
       });
     this.endRound();
   }

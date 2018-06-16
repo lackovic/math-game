@@ -8,31 +8,37 @@ export class GameEngine {
   private readonly waitSeconds: number = 5;
   private readonly percentageOfCorrectAnswers = 50;
 
-  private readonly waitMessage = 'Waiting for the next challenge...';
-
   private isSolutionCorrect: boolean;
+
   private isRoundOpen: boolean = false;
+  private currentRound: number = 0;
+
   public players: Player[] = [];
   private totalPlayers: number = 0;
-  private currentRound: number = 0;
+  private availableSlots: number = 10;
 
   constructor(private gameServer: GameServer) { }
 
   addPlayer(socketId: string) {
-    // TODO Limit players count to 10
-    let newPlayer: Player = {
-      socketId: socketId,
-      name: "Player " + ++this.totalPlayers,
-      score: 0
-    };
-    this.players.push(newPlayer);
-    if (this.players.length == 1) {
-      this.endRound(this.currentRound);
+    if (this.availableSlots > 0) {
+      this.availableSlots--;
+      let newPlayer: Player = {
+        socketId: socketId,
+        name: "Player " + ++this.totalPlayers,
+        score: 0
+      };
+      this.players.push(newPlayer);
+      if (this.players.length == 1) {
+        this.endRound(this.currentRound);
+      }
+    } else {
+      this.gameServer.gameFull(socketId);
     }
   }
 
   removePlayer(socketId: string): boolean {
     if (this.players.length > 0) {
+      this.availableSlots++;
       let player: Player = this.players.filter(p => p.socketId == socketId)[0];
       if (player != null) {
         this.players = this.players.filter(p => p !== player);
