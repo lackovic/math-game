@@ -46,7 +46,6 @@ export class GameServer {
         this.addPlayer(socket.id);
       });
       socket.on('answer', (answer: boolean) => {
-        console.log('Received answer %s from client %s', answer, socket.id);
         this.gameEngine.answerFromPlayer(answer, socket.id);
       });
       socket.on('disconnect', () => {
