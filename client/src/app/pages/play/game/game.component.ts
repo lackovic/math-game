@@ -9,7 +9,7 @@ import { SocketService } from '../../../services/socket.service';
 export class GameComponent implements OnInit {
 
   private roundSeconds: number;
-  private waitSeconds: number;
+  private breakSeconds: number;
 
   @Output() challenge;
   @Output() isRoundOpen: boolean;
@@ -37,7 +37,7 @@ export class GameComponent implements OnInit {
       .subscribe((params) => {
         console.log('Game joined');
         this.roundSeconds = params['roundSeconds'];
-        this.waitSeconds = params['waitSeconds'];
+        this.breakSeconds = params['breakSeconds'];
         this.endRound();
       });
     this.socketService.joinGame();
@@ -57,7 +57,7 @@ export class GameComponent implements OnInit {
 
   moveProgress(remainingSeconds: number, myRound: boolean) {
     if (myRound === this.isRoundOpen) {
-      const totalSeconds = this.isRoundOpen ? this.roundSeconds : this.waitSeconds;
+      const totalSeconds = this.isRoundOpen ? this.roundSeconds : this.breakSeconds;
       this.progress = (100 / totalSeconds) * remainingSeconds;
       if (remainingSeconds > 0) {
         remainingSeconds--;
@@ -68,7 +68,7 @@ export class GameComponent implements OnInit {
 
   endRound() {
     this.isRoundOpen = false;
-    this.moveProgress(this.waitSeconds, false);
+    this.moveProgress(this.breakSeconds, false);
   }
 
 }

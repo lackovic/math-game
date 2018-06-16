@@ -5,7 +5,7 @@ import { Randomizer } from './randomizer';
 export class GameEngine {
 
   private readonly roundSeconds: number = 10;
-  private readonly waitSeconds: number = 5;
+  private readonly breakSeconds: number = 5;
   private readonly percentageOfCorrectAnswers = 50;
 
   private isSolutionCorrect: boolean;
@@ -32,7 +32,7 @@ export class GameEngine {
       if (this.players.length == 1) {
         this.endRound(this.round);
       }
-      this.gameServer.gameJoined(socketId, this.roundSeconds, this.waitSeconds);
+      this.gameServer.gameJoined(socketId, this.roundSeconds, this.breakSeconds);
       // this.broadcastPlayersList();
     } else {
       this.gameServer.gameFull(socketId);
@@ -86,7 +86,7 @@ export class GameEngine {
         this.round++;
         console.log('------------------------');
         this.gameServer.endRound();
-        setTimeout(() => this.startRound(this.round), this.waitSeconds * 1000);
+        setTimeout(() => this.startRound(this.round), this.breakSeconds * 1000);
       } else {
         console.log('Round #%s ended', this.round);
         console.log('------------------------');

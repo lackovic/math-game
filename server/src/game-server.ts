@@ -89,9 +89,9 @@ export class GameServer {
     this.io.sockets.connected[socketId].emit('gameFull');
   }
 
-  gameJoined(socketId, roundSeconds: number, waitSeconds: number) {
+  gameJoined(socketId, roundSeconds: number, breakSeconds: number) {
     console.log('Sending join confirmation to player %s', socketId);
-    this.io.sockets.connected[socketId].emit('gameJoined', roundSeconds, waitSeconds);
+    this.io.sockets.connected[socketId].emit('gameJoined', roundSeconds, breakSeconds);
   }
 
 }

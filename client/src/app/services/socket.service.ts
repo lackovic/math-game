@@ -60,9 +60,9 @@ export class SocketService {
     });
   }
 
-  public onGameJoined(): Observable<{ roundSeconds: number, waitSeconds: number }> {
-    return new Observable<{ roundSeconds: number, waitSeconds: number }>(observer => {
-      this.socket.on('gameJoined', (roundSeconds: number, waitSeconds: number) => observer.next({ roundSeconds, waitSeconds }));
+  public onGameJoined(): Observable<{ roundSeconds: number, breakSeconds: number }> {
+    return new Observable<{ roundSeconds: number, breakSeconds: number }>(observer => {
+      this.socket.on('gameJoined', (roundSeconds: number, breakSeconds: number) => observer.next({ roundSeconds, breakSeconds }));
     });
   }
 
