@@ -74,9 +74,9 @@ export class GameServer {
     return this.app;
   }
 
-  startRound(challenge: string): any {
+  startRound(round: number, challenge: string): any {
     console.log('Starting round with challenge = %s', challenge);
-    this.io.emit('startRound', challenge);
+    this.io.emit('startRound', round, challenge);
   }
 
 

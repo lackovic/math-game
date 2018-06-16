@@ -38,9 +38,9 @@ export class SocketService {
     }
   }
 
-  public onStartRound(): Observable<string> {
-    return new Observable<string>(observer => {
-      this.socket.on('startRound', (question: string) => observer.next(question));
+  public onStartRound(): Observable<{ round: number, challenge: string }> {
+    return new Observable<{ round: number, challenge: string }>(observer => {
+      this.socket.on('startRound', (round: number, challenge: string) => observer.next({ round, challenge }));
     });
   }
 
@@ -52,7 +52,7 @@ export class SocketService {
 
   public onEvent(event: Event): Observable<any> {
     return new Observable<Event>(observer => {
-        this.socket.on(event, () => observer.next());
+      this.socket.on(event, () => observer.next());
     });
   }
 }

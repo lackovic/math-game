@@ -17,6 +17,8 @@ export class PlayComponent implements OnInit {
   constructor(private socketService: SocketService) { }
 
   ngOnInit() {
+    // TODO Send player's name
+    // socket.client['nickname'] = data.name;
     this.socketService.connect();
     setTimeout(() => this.checkConnection(), 1000);
   }

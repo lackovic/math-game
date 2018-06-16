@@ -1,11 +1,12 @@
-<div class="container" *ngIf="!equation">
+<div class="container" *ngIf="!challenge">
   <h2>Connected!</h2>
   <h3>Waiting for the first challenge...</h3>
 </div>
 <div class="container" *ngIf="isRoundOpen">
-  <h2>{{equation}}</h2>
+  <h3>Round #{{round}}</h3>
+  <h1>{{challenge}}</h1>
 </div>
-<div class="container" *ngIf="!isRoundOpen && equation">
+<div class="container" *ngIf="!isRoundOpen && challenge">
   <h2>Round ended.</h2>
   <h3>Waiting for the next challenge...</h3>
 </div>

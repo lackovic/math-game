@@ -19,6 +19,7 @@ export class GameEngine {
   constructor(private gameServer: GameServer) { }
 
   addPlayer(socketId: string) {
+    // TODO Limit players count to 10
     let newPlayer: Player = {
       socketId: socketId,
       name: "Player " + ++this.totalPlayers,
@@ -41,14 +42,14 @@ export class GameEngine {
     return false;
   }
 
-  startRound(myRound: number) {
+  startRound(round: number) {
     if (this.players.length > 0) {
       this.isRoundOpen = true;
       console.log('Starting new game');
       let challenge = this.getRandomChallenge();
       console.log('Generated challenge = %s', challenge);
-      this.gameServer.startRound(challenge);
-      setTimeout(() => this.endRound(myRound), this.roundSeconds * 1000);
+      this.gameServer.startRound(round, challenge);
+      setTimeout(() => this.endRound(round), this.roundSeconds * 1000);
     }
   }
 
@@ -69,8 +70,8 @@ export class GameEngine {
     return n % 1 === 0;
   }
 
-  endRound(myRound: number) {
-    if (myRound == this.currentRound) {
+  endRound(round: number) {
+    if (round == this.currentRound) {
       this.isRoundOpen = false;
       if (this.players.length > 0) {
         console.log('Restarting in %s seconds', this.waitSeconds);

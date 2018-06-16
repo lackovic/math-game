@@ -11,16 +11,20 @@ export class GameComponent implements OnInit {
   private readonly roundSeconds: number = 10;
   private readonly waitSeconds: number = 5;
 
-  @Output() equation;
+  @Output() challenge;
   @Output() isRoundOpen: boolean;
   @Output() progress: number;
+  @Output() round: number;
 
   constructor(private socketService: SocketService) { }
 
   ngOnInit() {
     this.socketService.onStartRound()
-      .subscribe((question: string) => {
-        this.startRound(question);
+      .subscribe(params => {
+        const round = params['round'];
+        const challenge = params['challenge'];
+        console.log('Received round = %s, challenge = %s', round, challenge);
+        this.startRound(round, challenge);
       });
     this.socketService.onEndRound()
       .subscribe(() => {
@@ -31,13 +35,14 @@ export class GameComponent implements OnInit {
 
   answer(answer: boolean) {
     this.socketService.send(answer);
-    this.endRound();
+    this.isRoundOpen = false;
   }
 
-  startRound(equation: string) {
+  startRound(round: number, challenge: string) {
     this.isRoundOpen = true;
-    this.equation = equation;
-    this.moveProgress(this.roundSeconds, this.isRoundOpen);
+    this.round = round;
+    this.challenge = challenge;
+    this.moveProgress(this.roundSeconds, true);
   }
 
   moveProgress(remainingSeconds: number, myRound: boolean) {
@@ -53,7 +58,7 @@ export class GameComponent implements OnInit {
 
   endRound() {
     this.isRoundOpen = false;
-    this.moveProgress(this.waitSeconds, this.isRoundOpen);
+    this.moveProgress(this.waitSeconds, false);
   }
 
 }
