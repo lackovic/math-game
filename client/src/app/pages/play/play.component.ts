@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PlayComponent implements OnInit {
 
-  private readonly maxRetries: number = 4;
+  private readonly maxRetries: number = 10;
   private retriesCount = 0;
 
   @Output() playerName: string;

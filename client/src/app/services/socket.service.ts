@@ -23,6 +23,7 @@ export class SocketService {
     if (config.port) {
       serverUrl += ':' + config.port;
     }
+    console.log('Connecting to %s', serverUrl);
     this.socket = socketIo(serverUrl);
   }
 
