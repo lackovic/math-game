@@ -1,73 +1,45 @@
-import { Player } from './models/player';
 import { GameServer } from './game-server';
 import { Randomizer } from './randomizer';
+import { PlayersManager } from './players-manager';
 
 export class GameEngine {
 
-  private readonly roundSeconds: number = 10;
-  private readonly breakSeconds: number = 5;
+  public readonly roundSeconds: number = 10;
+  public readonly breakSeconds: number = 5;
   private readonly percentageOfCorrectAnswers = 50;
 
-  private isSolutionCorrect: boolean;
+  private _isSolutionCorrect: boolean;
 
-  private isRoundOpen: boolean = false;
-  private round: number = 0;
+  private _isRoundOpen: boolean = false;
+  private _round: number = 0;
 
-  public players: Player[] = [];
-  private totalPlayers: number = 0;
-  private availableSlots: number = 10;
+  private _gameServer: GameServer;
+  private _playersManager: PlayersManager;
 
-  constructor(private gameServer: GameServer) { }
+  constructor() { }
 
-  addPlayer(socketId: string) {
-    if (this.availableSlots > 0) {
-      console.log('Player %s joined the game', socketId);
-      this.availableSlots--;
-      let newPlayer: Player = {
-        socketId: socketId,
-        name: "Player " + ++this.totalPlayers,
-        score: 0
-      };
-      this.players.push(newPlayer);
-      if (this.players.length == 1) {
-        this.endRound(this.round);
-      }
-      this.gameServer.gameJoined(socketId, this.roundSeconds, this.breakSeconds);
-      // this.broadcastPlayersList();
-    } else {
-      this.gameServer.gameFull(socketId);
-    }
+  get isRoundOpen(): boolean {
+    return this._isRoundOpen;
   }
 
-  removePlayer(socketId: string): boolean {
-    if (this.players.length > 0) {
-      this.availableSlots++;
-      let player: Player = this.getPlayer(socketId);
-      if (player != null) {
-        this.players = this.players.filter(p => p !== player);
-        return true;
-      }
-    }
-    return false;
+  get round(): number {
+    return this._round;
   }
 
-  getPlayer(socketId): Player {
-    return this.players.filter(p => p.socketId == socketId)[0];
+  set gameServer(gameServer) {
+    this._gameServer = gameServer;
   }
 
-  updatePlayerScore(socketId, variation: number) {
-    const player = this.getPlayer(socketId);
-    if (player != null) {
-      player.score += variation;
-    }
+  set playersManager(playersManager) {
+    this._playersManager = playersManager;
   }
 
   startRound(round: number) {
-    if (this.players.length > 0) {
-      this.isRoundOpen = true;
-      console.log('Starting round #%s', this.round);
+    if (this._playersManager.areTherePlayers()) {
+      this._isRoundOpen = true;
+      console.log('Starting round #%s', this._round);
       let challenge = this.getRandomChallenge();
-      this.gameServer.startRound(round, challenge);
+      this._gameServer.startRound(round, challenge);
       setTimeout(() => this.endRound(round), this.roundSeconds * 1000);
     }
   }
@@ -75,8 +47,8 @@ export class GameEngine {
   getRandomChallenge(): string {
     let arithmeticOperation = Randomizer.getRandomArithmeticOperation();
     let solution = eval(arithmeticOperation);
-    this.isSolutionCorrect = Math.floor(Math.random() * 100) < this.percentageOfCorrectAnswers;
-    if (!this.isSolutionCorrect) {
+    this._isSolutionCorrect = Math.floor(Math.random() * 100) < this.percentageOfCorrectAnswers;
+    if (!this._isSolutionCorrect) {
       solution += Randomizer.getPlausibleRandomDeviation(solution);
     }
     if (!this.isInteger(solution)) {
@@ -90,36 +62,23 @@ export class GameEngine {
   }
 
   endRound(round: number) {
-    if (round == this.round) {
-      this.isRoundOpen = false;
-      if (this.players.length > 0) {
-        console.log('Ending round #%s', this.round);
-        this.round++;
+    if (round == this._round) {
+      this._isRoundOpen = false;
+      if (this._playersManager.areTherePlayers()) {
+        console.log('Ending round #%s', this._round);
+        this._round++;
         console.log('------------------------');
-        this.gameServer.endRound();
-        setTimeout(() => this.startRound(this.round), this.breakSeconds * 1000);
+        this._gameServer.endRound();
+        setTimeout(() => this.startRound(this._round), this.breakSeconds * 1000);
       } else {
-        console.log('Round #%s ended', this.round);
+        console.log('Round #%s ended', this._round);
         console.log('------------------------');
       }
     }
   }
 
-  answerFromPlayer(answer: boolean, playerId: string) {
-    if (answer == this.isSolutionCorrect) {
-      if (this.isRoundOpen) {
-        console.log('Player %s answer "%s" is correct', playerId, answer);
-        this.updatePlayerScore(playerId, 1);
-        this.endRound(this.round);
-      }
-    } else {
-      console.log('Player %s answer "%s" is wrong', playerId, answer);
-      this.updatePlayerScore(playerId, -1);
-      this.gameServer.wrongAnswer(playerId);
-    }
-    console.log("Scoreboard:")
-    this.players.forEach(player => {
-      console.log("%s score = %s", player.name, player.score);
-    });
+  isAnswerCorrect(answer: boolean): any {
+    return answer == this._isSolutionCorrect;
   }
+
 }

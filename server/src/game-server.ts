@@ -1,6 +1,7 @@
 import { createServer, Server } from 'http';
 import * as express from 'express';
 import * as socketIo from 'socket.io';
+import { PlayersManager } from './players-manager';
 import { GameEngine } from './game-engine';
 
 export class GameServer {
@@ -12,12 +13,21 @@ export class GameServer {
   private io: SocketIO.Server;
   private port: string | number;
 
-  private gameEngine = new GameEngine(this);
+  private _gameEngine: GameEngine;
+  private _playersManager: PlayersManager;
 
   constructor() {
     this.initServer();
     this.startServer();
     this.get();
+  }
+
+  set gameEngine(gameEngine) {
+    this._gameEngine = gameEngine;
+  }
+
+  set playersManager(playersManager) {
+    this._playersManager = playersManager;
   }
 
   private initServer() {
@@ -42,14 +52,21 @@ export class GameServer {
 
     this.io.on('connect', (socket: any) => {
       console.log('Player %s connected', socket.id);
+
       socket.on('joinGame', () => {
-        this.addPlayer(socket.id);
+        console.log('Player %s wants to join the game', socket.id);
+        this._playersManager.addPlayer(socket.id);
       });
+
       socket.on('answer', (answer: boolean) => {
-        this.gameEngine.answerFromPlayer(answer, socket.id);
+        this._playersManager.answerFromPlayer(answer, socket.id);
       });
+
       socket.on('disconnect', () => {
-        this.removePlayer(socket.id);
+        if (this._playersManager.removePlayer(socket.id)) {
+          console.log('Player ' + socket.id + ' left the game');
+          // this.broadcastPlayersList();
+        }
       });
     });
   }
@@ -58,18 +75,6 @@ export class GameServer {
   //   this.io.sockets.emit('message', this.gameEngine.players);
   //   console.log('Connected players = %s', this.gameEngine.players.length);
   // }
-
-  addPlayer(id: string) {
-    console.log('Player %s wants to join the game', id);
-    this.gameEngine.addPlayer(id);
-  }
-
-  removePlayer(id: string) {
-    if (this.gameEngine.removePlayer(id)) {
-      console.log('Player ' + id + ' left the game');
-      // this.broadcastPlayersList();
-    }
-  }
 
   getApp(): express.Application {
     return this.app;
@@ -89,9 +94,9 @@ export class GameServer {
     this.io.sockets.connected[socketId].emit('gameFull');
   }
 
-  gameJoined(socketId, roundSeconds: number, breakSeconds: number) {
+  gameJoined(socketId) {
     console.log('Sending join confirmation to player %s', socketId);
-    this.io.sockets.connected[socketId].emit('gameJoined', roundSeconds, breakSeconds);
+    this.io.sockets.connected[socketId].emit('gameJoined', this._gameEngine.roundSeconds, this._gameEngine.breakSeconds);
   }
 
   wrongAnswer(socketId) {
