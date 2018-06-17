@@ -59,16 +59,16 @@ export class GameComponent implements OnInit {
     this.isAnswerWrong = false;
     this.round = round;
     this.challenge = challenge;
-    this.moveProgress(this.roundSeconds, true);
+    this.moveProgress(this.roundSeconds, true, round);
   }
 
-  moveProgress(remainingSeconds: number, myRound: boolean) {
-    if (myRound === this.isRoundOpen) {
+  moveProgress(remainingSeconds: number, isRoundOpen: boolean, myRound: number) {
+    if (isRoundOpen === this.isRoundOpen && myRound === this.round) {
       const totalSeconds = this.isRoundOpen ? this.roundSeconds : this.breakSeconds;
       this.progress = (100 / totalSeconds) * remainingSeconds;
       if (remainingSeconds > 0) {
         remainingSeconds--;
-        setTimeout(() => this.moveProgress(remainingSeconds, myRound), 1000);
+        setTimeout(() => this.moveProgress(remainingSeconds, isRoundOpen, myRound), 1000);
       }
     }
   }
@@ -76,7 +76,7 @@ export class GameComponent implements OnInit {
   endRound() {
     this.isAnswerWrong = false;
     this.isRoundOpen = false;
-    this.moveProgress(this.breakSeconds, false);
+    this.moveProgress(this.breakSeconds, false, this.round);
   }
 
 }
