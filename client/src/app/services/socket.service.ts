@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import * as socketIo from 'socket.io-client';
+import { Player } from '../models/Player';
 
 const SERVER_URL = 'http://localhost:4300';
 
@@ -72,9 +73,9 @@ export class SocketService {
     });
   }
 
-  public onEvent(event: Event): Observable<any> {
-    return new Observable<Event>(observer => {
-      this.socket.on(event, () => observer.next());
+  public onPlayers(): Observable<Player[]> {
+    return new Observable<Player[]>(observer => {
+      this.socket.on('players', (players: Player[]) => observer.next(players));
     });
   }
 }

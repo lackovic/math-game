@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Player } from '../../../models/Player';
-import { forEach } from '@angular/router/src/utils/collection';
 import { SocketService } from '../../../services/socket.service';
 
 @Component({
@@ -10,33 +9,16 @@ import { SocketService } from '../../../services/socket.service';
 })
 export class PlayersComponent implements OnInit {
 
-  maxPlayers = 10;
+  private players: Player[] = [];
 
-  players: Player[] = [];
-
-  constructor(private socketService: SocketService) {
-    this.initPlayers();
-  }
+  constructor(private socketService: SocketService) { }
 
   ngOnInit() {
-  }
-
-  initPlayers() {
-    const numPlayers = Math.floor((Math.random() * this.maxPlayers) + 1);
-    for (let i = 1; i < numPlayers; i++) {
-      this.players.push({
-        id: i,
-        name: 'Player ' + i,
-        score: Math.floor((Math.random() * 30))
+    this.socketService.onPlayers()
+      .subscribe(players => {
+        this.players = players;
+        this.players = this.players.sort((a, b) => b.score - a.score);
       });
-    }
-    const you = {
-      id: numPlayers,
-      name: 'You',
-      score: Math.floor((Math.random() * 30))
-    };
-    this.players.push(you);
-    this.players = this.players.sort((a, b) => b.score - a.score);
   }
 
   exit() {

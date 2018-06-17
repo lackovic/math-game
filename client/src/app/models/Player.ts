@@ -1,5 +1,5 @@
 export interface Player {
-  id: number;
+  socketId: string;
   name: string;
   score: number;
 }

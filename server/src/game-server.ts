@@ -3,6 +3,7 @@ import * as express from 'express';
 import * as socketIo from 'socket.io';
 import { PlayersManager } from './players-manager';
 import { GameEngine } from './game-engine';
+import { Player } from './models/player';
 
 export class GameServer {
 
@@ -102,6 +103,10 @@ export class GameServer {
   wrongAnswer(socketId) {
     console.log('Sending wrong answer to player %s', socketId);
     this.io.sockets.connected[socketId].emit('wrongAnswer');
+  }
+
+  emitPlayers(players: Player[]) {
+    this.io.emit('players', players);
   }
 
 }

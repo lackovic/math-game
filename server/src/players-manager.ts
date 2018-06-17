@@ -36,7 +36,7 @@ export
         this._gameEngine.endRound(this._gameEngine.round);
       }
       this._gameServer.gameJoined(socketId);
-      // this.broadcastPlayersList();
+      this._gameServer.emitPlayers(this.players);
     } else {
       this._gameServer.gameFull(socketId);
     }
@@ -48,6 +48,7 @@ export
       let player: Player = this.getPlayer(socketId);
       if (player != null) {
         this.players = this.players.filter(p => p !== player);
+        this._gameServer.emitPlayers(this.players);
         return true;
       }
     }
@@ -62,6 +63,7 @@ export
     const player = this.getPlayer(socketId);
     if (player != null) {
       player.score += variation;
+      this._gameServer.emitPlayers(this.players);
     }
   }
 
