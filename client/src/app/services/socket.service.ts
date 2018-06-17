@@ -7,7 +7,7 @@ import { Player } from '../models/Player';
 import { ServerConfig } from './server-config';
 
 declare var require: any;
-const config: ServerConfig = require('../server-config.json');
+const config: ServerConfig = require('../../assets/server-config.json');
 
 @Injectable({
   providedIn: 'root'
