@@ -40,8 +40,8 @@ export class GameServer {
   }
 
   private get() {
-    this.app.get('/', function (req, res) {
-      res.send('Math game server is up and running!');
+    this.app.get('/', function (request, response) {
+      response.send('Math game server is up and running!');
     });
   }
 

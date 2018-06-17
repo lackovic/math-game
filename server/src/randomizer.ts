@@ -15,7 +15,7 @@ export class Randomizer {
     } else {
       deviation = 2;
     };
-    if (-1 < solution && solution < 1 && solution != 0) {
+    if (-1 < solution && solution < 1 && solution !== 0) {
       deviation /= 10;
     }
     if (Math.random() < 0.5) {

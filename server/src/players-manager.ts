@@ -12,8 +12,6 @@ export
   private _gameEngine: GameEngine;
   private _gameServer: GameServer;
 
-  constructor() { }
-
   set gameEngine(gameEngine) {
     this._gameEngine = gameEngine;
   }
@@ -26,13 +24,13 @@ export
     if (this.availableSlots > 0) {
       console.log('Player %s joined the game', socketId);
       this.availableSlots--;
-      let newPlayer: Player = {
+      const newPlayer: Player = {
         socketId: socketId,
         name: "Player " + ++this.totalPlayers,
         score: 0
       };
       this.players.push(newPlayer);
-      if (this.players.length == 1) {
+      if (this.players.length === 1) {
         this._gameEngine.endRound(this._gameEngine.round);
       }
       this._gameServer.gameJoined(socketId);
@@ -45,8 +43,8 @@ export
   removePlayer(socketId: string): boolean {
     if (this.players.length > 0) {
       this.availableSlots++;
-      let player: Player = this.getPlayer(socketId);
-      if (player != null) {
+      const player: Player = this.getPlayer(socketId);
+      if (player !== null) {
         this.players = this.players.filter(p => p !== player);
         this._gameServer.emitPlayers(this.players);
         return true;
@@ -56,12 +54,12 @@ export
   }
 
   getPlayer(socketId): Player {
-    return this.players.filter(p => p.socketId == socketId)[0];
+    return this.players.filter(p => p.socketId === socketId)[0];
   }
 
   updatePlayerScore(socketId, variation: number) {
     const player = this.getPlayer(socketId);
-    if (player != null) {
+    if (player !== null) {
       player.score += variation;
       this._gameServer.emitPlayers(this.players);
     }

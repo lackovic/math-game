@@ -16,8 +16,6 @@ export class GameEngine {
   private _gameServer: GameServer;
   private _playersManager: PlayersManager;
 
-  constructor() { }
-
   get isRoundOpen(): boolean {
     return this._isRoundOpen;
   }
@@ -38,14 +36,14 @@ export class GameEngine {
     if (this._playersManager.areTherePlayers()) {
       this._isRoundOpen = true;
       console.log('Starting round #%s', this._round);
-      let challenge = this.getRandomChallenge();
+      const challenge = this.getRandomChallenge();
       this._gameServer.startRound(round, challenge);
       setTimeout(() => this.endRound(round), this.roundSeconds * 1000);
     }
   }
 
   getRandomChallenge(): string {
-    let arithmeticOperation = Randomizer.getRandomArithmeticOperation();
+    const arithmeticOperation = Randomizer.getRandomArithmeticOperation();
     let solution = eval(arithmeticOperation);
     this._isSolutionCorrect = Math.floor(Math.random() * 100) < this.percentageOfCorrectAnswers;
     if (!this._isSolutionCorrect) {
@@ -62,7 +60,7 @@ export class GameEngine {
   }
 
   endRound(round: number) {
-    if (round == this._round) {
+    if (round === this._round) {
       this._isRoundOpen = false;
       if (this._playersManager.areTherePlayers()) {
         console.log('Ending round #%s', this._round);
@@ -78,7 +76,7 @@ export class GameEngine {
   }
 
   isAnswerCorrect(answer: boolean): any {
-    return answer == this._isSolutionCorrect;
+    return answer === this._isSolutionCorrect;
   }
 
 }

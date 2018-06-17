@@ -15,6 +15,6 @@ gameEngine.playersManager = playersManager;
 gameServer.gameEngine = gameEngine;
 gameServer.playersManager = playersManager;
 
-let app = gameServer.getApp();
+const mathGameServerApp = gameServer.getApp();
 
-export { app };
+export { mathGameServerApp };
