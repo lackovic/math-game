@@ -1,4 +1,4 @@
 {
-  "url": "https://dry-scrubland-70164.herokuapp.com",
-  "port": null
+  "url": "http://localhost",
+  "port": 8080
 }
