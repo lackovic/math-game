@@ -23,6 +23,9 @@ export class PlayComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.playerName = params['playerName'];
+      if (this.playerName === 'undefined') {
+        this.playerName = null;
+      }
     });
     this.socketService.connect();
     setTimeout(() => this.checkConnection(), 1000);
