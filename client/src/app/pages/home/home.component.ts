@@ -15,4 +15,8 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
+  join() {
+    this.router.navigate(['game', this.playerName]);
+  }
+
 }

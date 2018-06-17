@@ -18,11 +18,13 @@
   a point from the players' score. Correct late answers do not affect the score. After completing the round all players are
   informed that the round is over and a new round starts in 5 seconds after the end of last one.</p>
 
-<div class="input-group pt-2 pb-2">
-  <input type="text" class="form-control" placeholder="Player's name" [(ngModel)]="playerName">
-  <div class="input-group-append">
-    <button type="button" class="btn btn-primary btn-lg" [routerLink]="[ '/game', playerName ]">
-      Join
-    </button>
+<form (ngSubmit)="join()" #joinForm="ngForm">
+  <div class="form-group input-group pt-2 pb-2">
+    <input type="text" name="playerName" class="form-control" placeholder="Player's name" [(ngModel)]="playerName" required>
+    <div class="input-group-append">
+      <button type="submit" class="btn btn-primary btn-lg" [disabled]="!joinForm.form.valid">
+        Join
+      </button>
+    </div>
   </div>
-</div>
+</form>
