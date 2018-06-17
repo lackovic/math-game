@@ -1,3 +1,5 @@
+// Uncomment for firebase deploy
+// import * as functions from 'firebase-functions';
 import { GameServer } from './game-server';
 import { PlayersManager } from './players-manager';
 import { GameEngine } from './game-engine';
@@ -15,6 +17,9 @@ gameEngine.playersManager = playersManager;
 gameServer.gameEngine = gameEngine;
 gameServer.playersManager = playersManager;
 
-const mathGameServerApp = gameServer.getApp();
+// Uncomment for firebase deploy
+// export const mathGameServerApp = functions.https.onRequest(gameServer.getApp());
 
+// Remove for firebase deploy
+const mathGameServerApp = gameServer.getApp();
 export { mathGameServerApp };

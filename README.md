@@ -9,6 +9,8 @@ A realtime browser-based math game for up to 10 concurrent users
 3. [How to install](#how-to-install)
 4. [How to run](#how-to-run)
 
+<!-- 5. [Live demo](#live-demo) -->
+
 ## Introduction
 
 This is a realtime browser-based math game for up to 10 concurrent users. The game is structured as a continuous series of rounds, where all connected players compete to submit the correct answer first. The number of rounds is not limited, players can connect at any time and start competing.
@@ -50,3 +52,7 @@ In another command prompt, run:
 cd client
 ng serve --open
 ```
+
+<!-- ## Live Demo
+
+* [marco-math-game.firebaseapp.com](marco-math-game.firebaseapp.com) -->
