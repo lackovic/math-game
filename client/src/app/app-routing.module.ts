@@ -6,7 +6,7 @@ import { Error404Component } from './pages/error404/error404.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'game', component: PlayComponent },
+  { path: 'game/:playerName', component: PlayComponent },
   { path: '**', component: Error404Component }
 ];
 

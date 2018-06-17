@@ -54,9 +54,8 @@ export class GameServer {
     this.io.on('connect', (socket: any) => {
       console.log('Player %s connected', socket.id);
 
-      socket.on('joinGame', () => {
-        console.log('Player %s wants to join the game', socket.id);
-        this._playersManager.addPlayer(socket.id);
+      socket.on('joinGame', (playersName: string) => {
+        this._playersManager.addPlayer(socket.id, playersName);
       });
 
       socket.on('answer', (answer: boolean) => {
@@ -97,7 +96,7 @@ export class GameServer {
 
   gameJoined(socketId) {
     console.log('Sending join confirmation to player %s', socketId);
-    this.io.sockets.connected[socketId].emit('gameJoined', this._gameEngine.roundSeconds, this._gameEngine.breakSeconds);
+    this.io.sockets.connected[socketId].emit('gameJoined', this._gameEngine.roundSeconds, this._gameEngine.breakSeconds, socketId);
   }
 
   wrongAnswer(socketId) {

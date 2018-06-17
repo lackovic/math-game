@@ -7,9 +7,9 @@
     <h2>{{headerMessage}}</h2>
   </div>
   <div class="col-sm-8" *ngIf="!headerMessage">
-    <app-game></app-game>
+    <app-game (mySocketId)="onMySocketId($event)" [playerName]="playerName"></app-game>
   </div>
   <div class="col-sm-4">
-    <app-players></app-players>
+    <app-players [mySocketId]="mySocketId"></app-players>
   </div>
 </div>

@@ -1,5 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
+import { filter } from 'rxjs/operators';
 import { SocketService } from '../../services/socket.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-play',
@@ -10,17 +12,24 @@ export class PlayComponent implements OnInit {
 
   private readonly maxRetries: number = 4;
   private retriesCount = 0;
-  @Output() progress = 0;
 
+  @Output() playerName: string;
+  @Output() mySocketId: string;
+  @Output() progress = 0;
   @Output() headerMessage = 'Connecting to server...';
 
-  constructor(private socketService: SocketService) { }
+  constructor(private socketService: SocketService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    // TODO Send player's name
-    // socket.client['nickname'] = data.name;
+    this.route.params.subscribe(params => {
+      this.playerName = params['playerName'];
+    });
     this.socketService.connect();
     setTimeout(() => this.checkConnection(), 1000);
+  }
+
+  onMySocketId(mySocketId: string) {
+    this.mySocketId = mySocketId;
   }
 
   checkConnection() {

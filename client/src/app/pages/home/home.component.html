@@ -15,11 +15,14 @@
 
 <h2>Scoring</h2>
 <p class="text-justify">The first player to submit a correct answer gets 1 point for the round and completes the round. All incorrect answers subtract
-  a point from the players' score. Correct late answers do not affect the score. After completing the round all players
-  are informed that the round is over and a new round starts in 5 seconds after the end of last one.</p>
+  a point from the players' score. Correct late answers do not affect the score. After completing the round all players are
+  informed that the round is over and a new round starts in 5 seconds after the end of last one.</p>
 
-<p>
-  <button type="button" class="btn btn-primary btn-lg" routerLink="game">
-    Join
-  </button>
-</p>
+<div class="input-group">
+  <input type="text" class="form-control" placeholder="Player's name" [(ngModel)]="playerName">
+  <div class="input-group-append">
+    <button type="button" class="btn btn-primary btn-lg" [routerLink]="[ '/game', playerName ]">
+      Join
+    </button>
+  </div>
+</div>

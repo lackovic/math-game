@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { SocketService } from '../../../services/socket.service';
 
 @Component({
@@ -11,12 +11,15 @@ export class GameComponent implements OnInit {
   private roundSeconds: number;
   private breakSeconds: number;
 
+  @Input() playerName: string;
+
   @Output() challenge;
   @Output() isRoundOpen: boolean;
   @Output() isGameFull: boolean;
   @Output() isAnswerWrong: boolean;
   @Output() progress: number;
   @Output() round: number;
+  @Output() mySocketId = new EventEmitter<string>();
 
   constructor(private socketService: SocketService) { }
 
@@ -31,22 +34,20 @@ export class GameComponent implements OnInit {
       });
     this.socketService.onGameFull()
       .subscribe(() => {
-        console.log('The game is full');
         this.isGameFull = true;
       });
     this.socketService.onWrongAnswer()
       .subscribe(() => {
         this.isAnswerWrong = true;
-        console.log('Answer wrong');
       });
     this.socketService.onGameJoined()
       .subscribe((params) => {
-        console.log('Game joined');
         this.roundSeconds = params['roundSeconds'];
         this.breakSeconds = params['breakSeconds'];
+        this.mySocketId.emit(params['socketId']);
         this.endRound();
       });
-    this.socketService.joinGame();
+    this.socketService.joinGame(this.playerName);
   }
 
   answer(answer: boolean) {

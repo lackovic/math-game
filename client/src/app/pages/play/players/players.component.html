@@ -1,6 +1,6 @@
 <ul class="list-group">
   <li class="list-group-item list-group-item-secondary">Scoreboard</li>
-  <li class="list-group-item text-left" *ngFor="let player of players; let i = index" [ngClass]="{'active' : player.name=='You'}">
+  <li class="list-group-item text-left" *ngFor="let player of players; let i = index" [ngClass]="{'active' : player.socketId == mySocketId }">
     {{i+1}}. {{player.name}}
     <span class="badge badge-warning badge-pill pull-right">{{player.score}}</span>
   </li>

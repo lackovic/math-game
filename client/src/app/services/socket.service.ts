@@ -30,8 +30,8 @@ export class SocketService {
     return this.socket.connected;
   }
 
-  public joinGame() {
-    this.socket.emit('joinGame');
+  public joinGame(playersName: string) {
+    this.socket.emit('joinGame', playersName);
   }
 
   public sendAnswer(answer: boolean) {
@@ -74,9 +74,10 @@ export class SocketService {
     });
   }
 
-  public onGameJoined(): Observable<{ roundSeconds: number, breakSeconds: number }> {
-    return new Observable<{ roundSeconds: number, breakSeconds: number }>(observer => {
-      this.socket.on('gameJoined', (roundSeconds: number, breakSeconds: number) => observer.next({ roundSeconds, breakSeconds }));
+  public onGameJoined(): Observable<{ roundSeconds: number, breakSeconds: number, socketId: string }> {
+    return new Observable<{ roundSeconds: number, breakSeconds: number, socketId: string }>(observer => {
+      this.socket.on('gameJoined', (roundSeconds: number, breakSeconds: number, socketId: string) =>
+        observer.next({ roundSeconds, breakSeconds, socketId }));
     });
   }
 

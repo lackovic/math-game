@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Player } from '../../../models/Player';
 import { SocketService } from '../../../services/socket.service';
 
@@ -9,7 +9,8 @@ import { SocketService } from '../../../services/socket.service';
 })
 export class PlayersComponent implements OnInit {
 
-  private players: Player[] = [];
+  players: Player[] = [];
+  @Input() mySocketId: string;
 
   constructor(private socketService: SocketService) { }
 
