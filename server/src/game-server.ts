@@ -7,7 +7,7 @@ import { Player } from './models/player';
 
 export class GameServer {
 
-  public static readonly PORT: number = 8080;
+  public static readonly PORT: number = 4300;
 
   private app: express.Application;
   private server: Server;
