@@ -8,8 +8,7 @@ A realtime browser-based math game for up to 10 concurrent users
 2. [Architecture](#architecture)
 3. [How to install](#how-to-install)
 4. [How to run](#how-to-run)
-
-<!-- 5. [Live demo](#live-demo) -->
+5. [Live demo](#live-demo)
 
 ## Introduction
 
@@ -53,6 +52,6 @@ cd client
 ng serve --open
 ```
 
-<!-- ## Live Demo
+## Live Demo
 
-* [marco-math-game.firebaseapp.com](marco-math-game.firebaseapp.com) -->
+* [marco-math-game.firebaseapp.com](marco-math-game.firebaseapp.com)
