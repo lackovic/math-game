@@ -54,4 +54,4 @@ ng serve --open
 
 ## Live Demo
 
-* [marco-math-game.firebaseapp.com](marco-math-game.firebaseapp.com)
+* [marco-math-game.firebaseapp.com](https://marco-math-game.firebaseapp.com/)
