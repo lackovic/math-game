@@ -1,4 +1,4 @@
-<ul class="list-group" *ngIf="players.length > 0">
+<ul class="list-group pt-2 pb-2" *ngIf="players.length > 0">
   <li class="list-group-item list-group-item-secondary">Scoreboard</li>
   <li class="list-group-item text-left" *ngFor="let player of players; let i = index" [ngClass]="{'active' : player.socketId == mySocketId }">
     {{i+1}}. {{player.name}}
@@ -6,7 +6,7 @@
   </li>
 </ul>
 
-<p>
+<p class="pt-2 pb-2">
   <button type="button" class="btn btn-danger btn-lg" routerLink="" (click)="exit()">
     Exit
   </button>

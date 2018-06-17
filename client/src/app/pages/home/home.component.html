@@ -5,7 +5,7 @@
 <p>A realtime browser-based math game for up to 10 concurrent users</p>
 
 <p>
-  <img width="300" alt="Math game logo" src="assets/images/logo.svg">
+  <img width="200" alt="Math game logo" src="assets/images/logo.svg">
 </p>
 
 <h2>Challenge</h2>
@@ -18,7 +18,7 @@
   a point from the players' score. Correct late answers do not affect the score. After completing the round all players are
   informed that the round is over and a new round starts in 5 seconds after the end of last one.</p>
 
-<div class="input-group">
+<div class="input-group pt-2 pb-2">
   <input type="text" class="form-control" placeholder="Player's name" [(ngModel)]="playerName">
   <div class="input-group-append">
     <button type="button" class="btn btn-primary btn-lg" [routerLink]="[ '/game', playerName ]">
