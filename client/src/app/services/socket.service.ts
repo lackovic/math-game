@@ -4,7 +4,10 @@ import { Observable } from 'rxjs';
 import * as socketIo from 'socket.io-client';
 import { Player } from '../models/Player';
 
-const SERVER_URL = 'http://localhost:4300';
+import { ServerConfig } from './server-config';
+
+declare var require: any;
+const config: ServerConfig = require('../server-config.json');
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +19,11 @@ export class SocketService {
   constructor() { }
 
   public connect() {
-    this.socket = socketIo(SERVER_URL);
+    let serverUrl = config.url;
+    if (config.port) {
+      serverUrl += ':' + config.port;
+    }
+    this.socket = socketIo(serverUrl);
   }
 
   public isConnected(): boolean {
