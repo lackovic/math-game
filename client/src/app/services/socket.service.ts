@@ -30,8 +30,8 @@ export class SocketService {
     return this.socket.connected;
   }
 
-  public joinGame(playersName: string) {
-    this.socket.emit('joinGame', playersName);
+  public joinGame(playerName: string) {
+    this.socket.emit('joinGame', playerName);
   }
 
   public sendAnswer(answer: boolean) {

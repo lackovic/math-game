@@ -54,8 +54,8 @@ export class GameServer {
     this.io.on('connect', (socket: any) => {
       console.log('Player %s connected', socket.id);
 
-      socket.on('joinGame', (playersName: string) => {
-        this._playersManager.addPlayer(socket.id, playersName);
+      socket.on('joinGame', (playerName: string) => {
+        this._playersManager.addPlayer(socket.id, playerName);
       });
 
       socket.on('answer', (answer: boolean) => {

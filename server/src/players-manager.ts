@@ -20,16 +20,16 @@ export
     this._gameServer = gameServer;
   }
 
-  addPlayer(socketId: string, playersName: string) {
+  addPlayer(socketId: string, playerName: string) {
     if (this.availableSlots > 0) {
-      if (!playersName) {
-        playersName = "Player " + ++this.totalPlayers
+      if (!playerName) {
+        playerName = "Player " + ++this.totalPlayers
       }
       console.log('Player %s joined the game', socketId);
       this.availableSlots--;
       const newPlayer: Player = {
         socketId: socketId,
-        name: playersName,
+        name: playerName,
         score: 0
       };
       this.players.push(newPlayer);
