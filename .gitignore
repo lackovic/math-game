@@ -4,14 +4,11 @@
 client/dist
 client/tmp
 client/out-tsc
+client/firebase/public
 
 server/dist
 server/tmp
 server/out-tsc
-
-firebase/functions/src
-firebase/functions/lib
-firebase/public
 
 # dependencies
 node_modules

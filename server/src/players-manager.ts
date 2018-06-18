@@ -34,6 +34,7 @@ export
       };
       this.players.push(newPlayer);
       if (this.players.length === 1) {
+        this._gameEngine.resetRoundNumber();
         this._gameEngine.endRound(this._gameEngine.round);
       }
       this._gameServer.gameJoined(socketId);

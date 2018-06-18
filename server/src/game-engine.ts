@@ -75,8 +75,12 @@ export class GameEngine {
     }
   }
 
-  isAnswerCorrect(answer: boolean): any {
+  isAnswerCorrect(answer: boolean): boolean {
     return answer === this._isSolutionCorrect;
+  }
+
+  resetRoundNumber() {
+    this._round = 0;
   }
 
 }
