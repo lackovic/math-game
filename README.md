@@ -1,6 +1,6 @@
 # math-game
 
-A realtime browser-based math game for up to 10 concurrent users
+A realtime browser-based math game for up to 10 concurrent users.
 
 [![StackShare](https://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/lackovic/math-game)
 
@@ -24,9 +24,9 @@ The first player to submit a correct answer gets 1 point for the round and compl
 
 The application follows a typical client-server model, with multiple clients and one server.
 
-The client side is built with Angular and the server side with Express/Node.js.
+The client side is built with [Angular](https://angular.io/) and the server side with [Express](https://expressjs.com/)/[Node.js](https://nodejs.org/en/).
 
-They communicate with each other through websockets, using the Socket.IO library.
+They communicate with each other through websockets, using the [Socket.IO](https://socket.io/) library.
 
 ## How to install
 
