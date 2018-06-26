@@ -2,7 +2,7 @@
 
 A realtime browser-based math game for up to 10 concurrent users.
 
-[![StackShare](https://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/lackovic/math-game)
+[![StackShare](https://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/lackovic/math-game) [![Greenkeeper badge](https://badges.greenkeeper.io/lackovic/math-game.svg)](https://greenkeeper.io/)
 
 ## Table of Contents
 
