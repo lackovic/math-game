@@ -1,0 +1,10 @@
+{
+  "files.exclude": {
+    ".vscode": true,
+    "client/node_modules": true,
+    "client/dist": true,
+    "client/firebase/public": true,
+    "server/node_modules": true,
+    "server/dist": true
+  }
+}
