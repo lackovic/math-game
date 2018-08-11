@@ -24,9 +24,11 @@ The first player to submit a correct answer gets 1 point for the round and compl
 
 The application follows a typical client-server model, with multiple clients and one server.
 
-The client side is built with [Angular](https://angular.io/) and the server side with [Express](https://expressjs.com/)/[Node.js](https://nodejs.org/en/).
+Both client and server are written in [Typescript](https://www.typescriptlang.org/).
 
-They communicate with each other through websockets, using the [Socket.IO](https://socket.io/) library.
+* The client side is built with [Angular 6](https://angular.io/), using [Bootstrap 4](https://getbootstrap.com/) for layout and styling.
+* The server side with [Express 4](https://expressjs.com/)/[Node.js](https://nodejs.org/en/).
+* Client/server communication is handled with websockets, using [Socket.IO 2](https://socket.io/).
 
 ## How to install
 
@@ -56,4 +58,6 @@ ng serve --open
 
 ## Live Demo
 
-* [marco-math-game.firebaseapp.com](https://marco-math-game.firebaseapp.com/)
+The client is hosted on [Google Firebase](https://firebase.google.com/) and the server on [Heroku](https://www.heroku.com/).
+
+* [MathGame](https://marco-math-game.firebaseapp.com/)
