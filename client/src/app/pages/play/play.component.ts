@@ -1,5 +1,4 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { filter } from 'rxjs/operators';
 import { SocketService } from '../../services/socket.service';
 import { ActivatedRoute } from '@angular/router';
 
