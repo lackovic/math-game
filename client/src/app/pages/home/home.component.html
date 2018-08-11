@@ -19,7 +19,7 @@
   informed that the round is over and a new round starts in 5 seconds after the end of last one.</p>
 
 <form (ngSubmit)="join()" #joinForm="ngForm">
-  <div class="form-group input-group pt-2 pb-2">
+  <div class="input-group input-group-lg py-2">
     <input type="text" name="playerName" class="form-control" placeholder="Player's name" [(ngModel)]="playerName" required>
     <div class="input-group-append">
       <button type="submit" class="btn btn-primary btn-lg" [disabled]="!joinForm.form.valid">
