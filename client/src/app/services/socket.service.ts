@@ -18,7 +18,7 @@ export class SocketService {
 
   constructor() { }
 
-  public connect() {
+  connect() {
     let serverUrl = config.url;
     if (config.port) {
       serverUrl += ':' + config.port;
@@ -27,15 +27,15 @@ export class SocketService {
     this.socket = socketIo(serverUrl);
   }
 
-  public isConnected(): boolean {
+  isConnected(): boolean {
     return this.socket.connected;
   }
 
-  public joinGame(playerName: string) {
+  joinGame(playerName: string) {
     this.socket.emit('joinGame', playerName);
   }
 
-  public sendAnswer(answer: boolean) {
+  sendAnswer(answer: boolean) {
     if (this.socket != null) {
       this.socket.emit('answer', answer);
     } else {
@@ -43,7 +43,7 @@ export class SocketService {
     }
   }
 
-  public disconnect() {
+  disconnect() {
     if (this.socket != null) {
       this.socket.disconnect();
     } else {
@@ -51,38 +51,38 @@ export class SocketService {
     }
   }
 
-  public onStartRound(): Observable<{ round: number, challenge: string }> {
+  onStartRound(): Observable<{ round: number, challenge: string }> {
     return new Observable<{ round: number, challenge: string }>(observer => {
       this.socket.on('startRound', (round: number, challenge: string) => observer.next({ round, challenge }));
     });
   }
 
-  public onEndRound(): Observable<string> {
+  onEndRound(): Observable<string> {
     return new Observable<string>(observer => {
       this.socket.on('endRound', () => observer.next());
     });
   }
 
-  public onGameFull(): Observable<string> {
+  onGameFull(): Observable<string> {
     return new Observable<string>(observer => {
       this.socket.on('gameFull', () => observer.next());
     });
   }
 
-  public onWrongAnswer(): Observable<string> {
+  onWrongAnswer(): Observable<string> {
     return new Observable<string>(observer => {
       this.socket.on('wrongAnswer', () => observer.next());
     });
   }
 
-  public onGameJoined(): Observable<{ roundSeconds: number, breakSeconds: number, socketId: string }> {
+  onGameJoined(): Observable<{ roundSeconds: number, breakSeconds: number, socketId: string }> {
     return new Observable<{ roundSeconds: number, breakSeconds: number, socketId: string }>(observer => {
       this.socket.on('gameJoined', (roundSeconds: number, breakSeconds: number, socketId: string) =>
         observer.next({ roundSeconds, breakSeconds, socketId }));
     });
   }
 
-  public onPlayers(): Observable<Player[]> {
+  onPlayers(): Observable<Player[]> {
     return new Observable<Player[]>(observer => {
       this.socket.on('players', (players: Player[]) => observer.next(players));
     });
