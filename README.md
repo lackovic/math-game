@@ -10,7 +10,8 @@ A realtime browser-based math game for up to 10 concurrent users.
 2. [Architecture](#architecture)
 3. [How to install](#how-to-install)
 4. [How to run](#how-to-run)
-5. [Live demo](#live-demo)
+5. [How to test](#how-to-test)
+6. [Live demo](#live-demo)
 
 ## Introduction
 
@@ -43,17 +44,23 @@ gulp build
 ## How to run
 
 In a command prompt, run:
-
 ```
 cd server
 node dist/index.js
 ```
 
 In another command prompt, run:
-
 ```
 cd client
 ng serve --open
+```
+
+## How to test
+
+Due to a known [bug of the new Angular CLI](https://github.com/angular/angular-cli/issues/7296) tests must be executed with the `--source-map=false` option:
+```
+cd client
+ng test --source-map=false
 ```
 
 ## Live Demo
