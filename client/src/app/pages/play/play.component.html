@@ -7,7 +7,7 @@
       </p>
       <h2>{{headerMessage}}</h2>
     </div>
-    <div *ngIf="!headerMessage">
+    <div *ngIf="!headerMessage" class="py-2">
       <app-game (mySocketId)="onMySocketId($event)" [playerName]="playerName"></app-game>
     </div>
   </div>

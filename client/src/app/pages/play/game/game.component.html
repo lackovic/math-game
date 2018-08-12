@@ -4,40 +4,59 @@
 </div>
 
 <ng-template #notError>
-  <div class="container pt-2 pb-2" *ngIf="!isGameFull">
-    <ngb-progressbar [type]="isRoundOpen ? 'primary' : 'warning'" type="primary" [value]="progress">
-    </ngb-progressbar>
+
+  <div class="container" *ngIf="isGameFull; else gameNotFull">
+    <h2>Sorry, the game is full.</h2>
+    <h3>Try again later.</h3>
   </div>
-  <div class="container" *ngIf="!challenge && !isGameFull">
-    <h2>Connected!</h2>
-    <h3>Waiting for the first challenge...</h3>
-  </div>
-  <div class="container" *ngIf="isGameFull">
-    <h3>Sorry, the game is full.</h3>
-    <h1>Try again later.</h1>
-  </div>
-  <div class="container" *ngIf="isAnswerWrong">
-    <h2>Wrong answer.</h2>
-    <h3>Waiting for the round to end...</h3>
-  </div>
-  <div class="container" *ngIf="isRoundOpen && !isAnswerWrong">
-    <h3>Round #{{round}}</h3>
-    <h1>{{challenge}}</h1>
-  </div>
-  <div class="container" *ngIf="!isAnswerWrong && !isRoundOpen && challenge">
-    <h2>Round #{{round}} ended.</h2>
-    <h3>Waiting for the next challenge...</h3>
-  </div>
-  <div class="btn-group btn-group-justified" *ngIf="isRoundOpen && !isAnswerWrong">
-    <div class="col-sm pr-1">
-      <button type="button" class="btn btn-success btn-lg" (click)="answer(true)">
-        Correct
-      </button>
+
+  <ng-template #gameNotFull>
+
+    <div class="container">
+      <ngb-progressbar [type]="isRoundOpen ? 'primary' : 'warning'" type="primary" [value]="progress">
+      </ngb-progressbar>
     </div>
-    <div class="col-sm pl-1">
-      <button type="button" class="btn btn-danger btn-lg" (click)="answer(false)">
-        Wrong
-      </button>
+
+    <div class="container" *ngIf="!challenge; else inGame">
+      <h2>Connected!</h2>
+      <h3>Waiting for the first challenge...</h3>
     </div>
-  </div>
+
+    <ng-template #inGame>
+
+      <div class="container" *ngIf="isAnswerWrong; else answerNotWrong">
+        <h2>Wrong answer.</h2>
+        <h3>Waiting for the round to end...</h3>
+      </div>
+
+      <ng-template #answerNotWrong>
+
+        <div class="container" *ngIf="isRoundOpen">
+          <h3>Round #{{round}}</h3>
+          <h1>{{challenge}}</h1>
+          <div class="btn-group btn-group-justified">
+            <div class="col-sm pr-1">
+              <button type="button" class="btn btn-success btn-lg" (click)="answer(true)">
+                Correct
+              </button>
+            </div>
+            <div class="col-sm pl-1">
+              <button type="button" class="btn btn-danger btn-lg" (click)="answer(false)">
+                Wrong
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="container" *ngIf="!isRoundOpen">
+          <h2>Round #{{round}} ended.</h2>
+          <h3>Waiting for the next challenge...</h3>
+        </div>
+
+      </ng-template>
+
+    </ng-template>
+
+  </ng-template>
+
 </ng-template>
