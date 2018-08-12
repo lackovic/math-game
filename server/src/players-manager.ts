@@ -23,9 +23,9 @@ export
   addPlayer(socketId: string, playerName: string) {
     if (this.availableSlots > 0) {
       if (!playerName) {
-        playerName = "Player " + ++this.totalPlayers
+        playerName = `Player ${++this.totalPlayers}`;
       }
-      console.log('Player %s joined the game', socketId);
+      console.log(`Player ${socketId} joined the game`);
       this.availableSlots--;
       const newPlayer: Player = {
         socketId: socketId,
@@ -72,18 +72,18 @@ export
   answerFromPlayer(answer: boolean, playerId: string) {
     if (this._gameEngine.isAnswerCorrect(answer)) {
       if (this._gameEngine.isRoundOpen) {
-        console.log('Player %s answer "%s" is correct', playerId, answer);
+        console.log(`Player ${playerId} answer "${answer}" is correct`);
         this.updatePlayerScore(playerId, 1);
         this._gameEngine.endRound(this._gameEngine.round);
       }
     } else {
-      console.log('Player %s answer "%s" is wrong', playerId, answer);
+      console.log(`Player ${playerId} answer "${answer}" is wrong`);
       this.updatePlayerScore(playerId, -1);
       this._gameServer.wrongAnswer(playerId);
     }
     console.log("Scoreboard:")
     this.players.forEach(player => {
-      console.log("%s score = %s", player.name, player.score);
+      console.log(`${player.name} score = ${player.score}`);
     });
   }
 

@@ -48,11 +48,11 @@ export class GameServer {
   private startServer() {
 
     this.server.listen(this.port, () => {
-      console.log('Math game server listening on port %s', this.port);
+      console.log(`Math game server listening on port ${this.port}`);
     });
 
     this.io.on('connect', (socket: any) => {
-      console.log('Player %s connected', socket.id);
+      console.log(`Player ${socket.id} connected`);
 
       socket.on('joinGame', (playerName: string) => {
         this._playersManager.addPlayer(socket.id, playerName);
@@ -64,7 +64,7 @@ export class GameServer {
 
       socket.on('disconnect', () => {
         if (this._playersManager.removePlayer(socket.id)) {
-          console.log('Player ' + socket.id + ' left the game');
+          console.log(`Player ${socket.id} left the game`);
         }
       });
     });
@@ -75,7 +75,7 @@ export class GameServer {
   }
 
   startRound(round: number, challenge: string) {
-    console.log('Sending challenge "%s" for new round', challenge);
+    console.log(`Sending challenge "${challenge}" for new round`);
     this.io.emit('startRound', round, challenge);
   }
 
@@ -84,17 +84,17 @@ export class GameServer {
   }
 
   gameFull(socketId) {
-    console.log('Sending gameFull to player %s', socketId);
+    console.log(`Sending gameFull to player ${socketId}`);
     this.io.sockets.connected[socketId].emit('gameFull');
   }
 
   gameJoined(socketId) {
-    console.log('Sending join confirmation to player %s', socketId);
+    console.log(`Sending join confirmation to player ${socketId}`);
     this.io.sockets.connected[socketId].emit('gameJoined', this._gameEngine.roundSeconds, this._gameEngine.breakSeconds, socketId);
   }
 
   wrongAnswer(socketId) {
-    console.log('Sending wrong answer to player %s', socketId);
+    console.log(`Sending wrong answer to player ${socketId}`);
     this.io.sockets.connected[socketId].emit('wrongAnswer');
   }
 

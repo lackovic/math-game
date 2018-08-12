@@ -21,9 +21,9 @@ export class SocketService {
   connect() {
     let serverUrl = config.url;
     if (config.port) {
-      serverUrl += ':' + config.port;
+      serverUrl += `:${config.port}`;
     }
-    console.log('Connecting to %s', serverUrl);
+    console.log(`Connecting to ${serverUrl}`);
     this.socket = socketIo(serverUrl);
   }
 

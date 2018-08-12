@@ -35,7 +35,7 @@ export class GameEngine {
   startRound(round: number) {
     if (this._playersManager.areTherePlayers()) {
       this._isRoundOpen = true;
-      console.log('Starting round #%s', this._round);
+      console.log(`Starting round #${this._round}`);
       const challenge = this.getRandomChallenge();
       this._gameServer.startRound(round, challenge);
       setTimeout(() => this.endRound(round), this.roundSeconds * 1000);
@@ -52,7 +52,7 @@ export class GameEngine {
     if (!this.isInteger(solution)) {
       solution = solution.toFixed(2);
     }
-    return arithmeticOperation + ' = ' + solution;
+    return `${arithmeticOperation} = ${solution}`;
   }
 
   isInteger(n) {
@@ -63,13 +63,13 @@ export class GameEngine {
     if (round === this._round) {
       this._isRoundOpen = false;
       if (this._playersManager.areTherePlayers()) {
-        console.log('Ending round #%s', this._round);
+        console.log(`Ending round #${this._round}`);
         this._round++;
         console.log('------------------------');
         this._gameServer.endRound();
         setTimeout(() => this.startRound(this._round), this.breakSeconds * 1000);
       } else {
-        console.log('Round #%s ended', this._round);
+        console.log(`Round #${this._round} ended`);
         console.log('------------------------');
       }
     }
