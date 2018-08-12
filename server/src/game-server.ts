@@ -65,16 +65,10 @@ export class GameServer {
       socket.on('disconnect', () => {
         if (this._playersManager.removePlayer(socket.id)) {
           console.log('Player ' + socket.id + ' left the game');
-          // this.broadcastPlayersList();
         }
       });
     });
   }
-
-  // broadcastPlayersList() {
-  //   this.io.sockets.emit('message', this.gameEngine.players);
-  //   console.log('Connected players = %s', this.gameEngine.players.length);
-  // }
 
   getApp(): express.Application {
     return this.app;
