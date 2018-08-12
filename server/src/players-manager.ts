@@ -70,20 +70,24 @@ export
   }
 
   answerFromPlayer(answer: boolean, playerId: string) {
+    let playerAnswer;
     if (this._gameEngine.isAnswerCorrect(answer)) {
       if (this._gameEngine.isRoundOpen) {
-        console.log(`Player ${playerId} answer "${answer}" is correct`);
+        playerAnswer = 'correct';
         this.updatePlayerScore(playerId, 1);
         this._gameEngine.endRound(this._gameEngine.round);
+      } else {
+        playerAnswer = 'too late';
       }
     } else {
-      console.log(`Player ${playerId} answer "${answer}" is wrong`);
+      playerAnswer = 'wrong';
       this.updatePlayerScore(playerId, -1);
       this._gameServer.wrongAnswer(playerId);
     }
-    console.log("Scoreboard:")
+    console.log(`Player ${playerId} answer "${answer}" is ${playerAnswer}`);
+    console.log('Scoreboard:')
     this.players.forEach(player => {
-      console.log(`${player.name} score = ${player.score}`);
+        console.log(`${player.name} score = ${player.score}`);
     });
   }
 
