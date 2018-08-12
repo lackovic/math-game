@@ -16,6 +16,7 @@ export class GameComponent implements OnInit {
   @Output() challenge;
   @Output() isRoundOpen: boolean;
   @Output() isGameFull: boolean;
+  @Output() error = false;
   @Output() isAnswerWrong: boolean;
   @Output() progress: number;
   @Output() round: number;
@@ -35,6 +36,11 @@ export class GameComponent implements OnInit {
     this.socketService.onGameFull()
       .subscribe(() => {
         this.isGameFull = true;
+      });
+    this.socketService.onError()
+      .subscribe(() => {
+        this.isRoundOpen = false;
+        this.error = true;
       });
     this.socketService.onWrongAnswer()
       .subscribe(() => {

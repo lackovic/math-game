@@ -69,6 +69,12 @@ export class SocketService {
     });
   }
 
+  onError(): Observable<string> {
+    return new Observable<string>(observer => {
+      this.socket.on('error', () => observer.next());
+    });
+  }
+
   onWrongAnswer(): Observable<string> {
     return new Observable<string>(observer => {
       this.socket.on('wrongAnswer', () => observer.next());

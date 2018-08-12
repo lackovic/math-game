@@ -55,16 +55,28 @@ export class GameServer {
       console.log(`Player ${socket.id} connected`);
 
       socket.on('joinGame', (playerName: string) => {
-        this._playersManager.addPlayer(socket.id, playerName);
+        try {
+          this._playersManager.addPlayer(socket.id, playerName);
+        } catch (err) {
+          this.error(err);
+        }
       });
 
       socket.on('answer', (answer: boolean) => {
-        this._playersManager.answerFromPlayer(answer, socket.id);
+        try {
+          this._playersManager.answerFromPlayer(answer, socket.id);
+        } catch (err) {
+          this.error(err);
+        }
       });
 
       socket.on('disconnect', () => {
-        if (this._playersManager.removePlayer(socket.id)) {
-          console.log(`Player ${socket.id} left the game`);
+        try {
+          if (this._playersManager.removePlayer(socket.id)) {
+            console.log(`Player ${socket.id} left the game`);
+          }
+        } catch (err) {
+          this.error(err);
         }
       });
     });
@@ -86,6 +98,11 @@ export class GameServer {
   gameFull(socketId) {
     console.log(`Sending gameFull to player ${socketId}`);
     this.io.sockets.connected[socketId].emit('gameFull');
+  }
+
+  private error(err) {
+    console.log(err);
+    this.io.emit('error');
   }
 
   gameJoined(socketId) {
