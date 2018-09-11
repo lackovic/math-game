@@ -33,7 +33,7 @@ Both client and server are written in [Typescript](https://www.typescriptlang.or
 
 ## How to install
 
-```
+```bash
 cd client
 npm install
 cd ../server
@@ -44,13 +44,15 @@ gulp build
 ## How to run
 
 In a command prompt, run:
-```
+
+```bash
 cd server
 node dist/index.js
 ```
 
 In another command prompt, run:
-```
+
+```bash
 cd client
 ng serve --open
 ```
@@ -58,7 +60,8 @@ ng serve --open
 ## How to test
 
 Due to a known [bug of the new Angular CLI](https://github.com/angular/angular-cli/issues/7296) tests must be executed with the `--source-map=false` option:
-```
+
+```bash
 cd client
 ng test --source-map=false
 ```
