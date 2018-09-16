@@ -9,6 +9,10 @@ export class AppPage {
     return element(by.css('app-root h1')).getText();
   }
 
+  getPlayerNameInputField() {
+    return element(by.css('input'));
+  }
+
   getJoinButton() {
     return element(by.css('button'));
   }

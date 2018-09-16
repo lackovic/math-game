@@ -4,6 +4,7 @@ import { browser } from 'protractor';
 describe('workspace-project App', () => {
   let page: AppPage;
   const bec = browser.ExpectedConditions;
+  const playerName = 'Batman';
 
   beforeEach(() => {
     page = new AppPage();
@@ -21,4 +22,13 @@ describe('workspace-project App', () => {
     expect(browser.getCurrentUrl()).toBe(initialUrl);
   });
 
+  it('should join the game with a player name', async () => {
+    browser.waitForAngularEnabled(false);
+    page.navigateTo();
+    const initialUrl = browser.getCurrentUrl();
+    browser.wait(bec.presenceOf(page.getPlayerNameInputField()));
+    await page.getPlayerNameInputField().sendKeys(playerName);
+    await page.getJoinButton().click();
+    expect((await browser.getCurrentUrl()).endsWith('game/' + playerName)).not.toBe(initialUrl);
+  });
 });
