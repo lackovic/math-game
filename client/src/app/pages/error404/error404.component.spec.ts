@@ -16,7 +16,6 @@ describe('Error404Component', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(Error404Component);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

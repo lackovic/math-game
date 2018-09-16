@@ -38,7 +38,6 @@ describe('PlayComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(PlayComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

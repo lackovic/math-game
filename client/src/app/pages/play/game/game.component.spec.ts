@@ -22,7 +22,6 @@ describe('GameComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(GameComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
