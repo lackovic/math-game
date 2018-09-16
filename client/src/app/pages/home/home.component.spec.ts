@@ -3,12 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AppRoutingModule } from '../../app-routing.module';
-import { Error404Component } from '../error404/error404.component';
 import { HomeComponent } from './home.component';
-import { PlayComponent } from '../play/play.component';
-import { GameComponent } from '../play/game/game.component';
-import { PlayersComponent } from '../play/players/players.component';
+import { RouterModule } from '@angular/router';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -17,16 +13,12 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        Error404Component,
-        GameComponent,
-        HomeComponent,
-        PlayComponent,
-        PlayersComponent
+        HomeComponent
       ],
       imports: [
         FormsModule,
         NgbModule.forRoot(),
-        AppRoutingModule
+        RouterModule.forRoot([])
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' }
