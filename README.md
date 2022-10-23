@@ -63,7 +63,7 @@ Due to a known [bug of the new Angular CLI](https://github.com/angular/angular-c
 
 ```bash
 cd client
-ng test --source-map=false
+npx ng test --source-map=false
 ```
 
 ## Live Demo
