@@ -38,7 +38,7 @@ cd client
 npm install
 cd ../server
 npm install
-gulp build
+npx tsc -t es5 ./src/index.ts
 ```
 
 ## How to run
@@ -54,7 +54,7 @@ In another command prompt, run:
 
 ```bash
 cd client
-ng serve --open
+npx ng serve --open
 ```
 
 ## How to test
